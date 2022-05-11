@@ -7,6 +7,7 @@ import { addShip } from './assemblages/ship';
 import { drawPolyhedron } from './systems/draw-polyhedron';
 import { initUserInput } from './assemblages/user-input';
 import { GAME_PLAY_STAGE_ID, SHIP_ID } from './constants';
+import { clearStage } from './systems/clear-stage';
 
 // const stage = { width: 1920, height: 1080}
 const stage = { width: 480, height: 270 };
@@ -26,7 +27,8 @@ store.subscribe(() => {
 })
 
 gameLoop.addTask(
-  drawPolyhedron,
+  clearStage(GAME_PLAY_STAGE_ID),
+  drawPolyhedron(GAME_PLAY_STAGE_ID),
 );
 
 initUserInput(store.dispatch)
