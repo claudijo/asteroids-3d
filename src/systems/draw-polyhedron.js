@@ -2,6 +2,7 @@ import { insertAt, intersection, sortedIndex } from '../libs/array';
 import { dot, faceTo2d, normal, unit } from '../libs/vector';
 import { shadeOf } from '../libs/color';
 import { fillAndStroke, toPixels, trace } from '../libs/canvas';
+import { GAME_PLAY_STAGE_ID } from '../constants';
 
 // TODO: Maybe put this is in a component
 const light = [1, 2, 3];
@@ -29,15 +30,16 @@ export const drawPolyhedron = (getState, dispatch, elapsed) => {
     });
   });
 
-  const mapCoordinates = toPixels(stage.width, stage.height, stage.worldWidth, stage.worldHeight);
+  const { ctx, width, height, localWidth, localHeight } = stage.byId[GAME_PLAY_STAGE_ID];
+  const mapCoordinates = toPixels(width, height, localWidth, localHeight);
 
   sortedFaces.forEach(face => {
     const shade = dot(unit(normal(face)), unit(light));
     const fillStyle = shadeOf([0, 0, 255], shade);
     const polygon = faceTo2d(face, pointOfView.rightDir, pointOfView.upDir)
       .map(([x, y]) => mapCoordinates(x, y));
-    trace(stage.ctx, polygon);
-    fillAndStroke(stage.ctx, { lineWidth: 1, strokeStyle: fillStyle, fillStyle });
+    trace(ctx, polygon);
+    fillAndStroke(ctx, { lineWidth: 1, strokeStyle: fillStyle, fillStyle });
   });
 
 

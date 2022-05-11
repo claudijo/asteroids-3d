@@ -1,11 +1,12 @@
 import { createElement } from './libs/html';
 import { createStore } from './libs/store';
-import rootReducer from './reducers/root';
+import rootReducer from './components/root';
 import { createGameLoop } from './libs/game-loop';
 import { setStage } from './assemblages/stage';
 import { addShip } from './assemblages/ship';
-import { drawPolyhedron } from './tasks/draw-polyhedron';
+import { drawPolyhedron } from './systems/draw-polyhedron';
 import { initUserInput } from './assemblages/user-input';
+import { GAME_PLAY_STAGE_ID, SHIP_ID } from './constants';
 
 // const stage = { width: 1920, height: 1080}
 const stage = { width: 480, height: 270 };
@@ -21,13 +22,13 @@ document.body.appendChild(canvasElement);
 store.subscribe(gameLoop.run);
 
 store.subscribe(() => {
-  console.log('Update...', store.getState()['userInput']['keyPressed'])
+  console.log(store.getState())
 })
 
 gameLoop.addTask(
   drawPolyhedron,
 );
 
-initUserInput(store.dispatch, canvasElement, world)
-setStage(store.dispatch, canvasElement, world);
-addShip(store.dispatch);
+initUserInput(store.dispatch)
+setStage(store.dispatch, { canvasElement, world, id: GAME_PLAY_STAGE_ID });
+addShip(store.dispatch, { id: SHIP_ID });

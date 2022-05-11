@@ -27,6 +27,11 @@ export const sortedIndex = (array, value, compare = (a, b) => a - b) => {
   return low;
 }
 
+// Insert item in place
 export const insertAt = (array, index, item) => {
   array.splice(index, 0, item);
+}
+
+export const unique = (...arrays) => {
+  return [...new Set([].concat(...arrays))];
 }

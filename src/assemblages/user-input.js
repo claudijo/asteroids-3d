@@ -1,19 +1,19 @@
-import { clearAllKeyPressed, clearKeyPressed, setKeyPressed } from '../actions/user-input';
+import keyPressed from '../components/key-pressed';
 
-export const initUserInput = (dispatch, canvasElement, world) => {
+export const initUserInput = (dispatch) => {
   window.addEventListener('keydown', event => {
     if (event.repeat) {
       return;
     }
 
-    dispatch(setKeyPressed(event.key));
+    dispatch(keyPressed.add(event.code, { key: event.key }))
   });
 
   window.addEventListener('keyup', event => {
-    dispatch(clearKeyPressed(event.key));
+    dispatch(keyPressed.remove(event.code));
   });
 
   window.addEventListener('blur', event => {
-    dispatch(clearAllKeyPressed())
-  })
+    // dispatch(keyPressed.clear())
+  });
 };
