@@ -4,6 +4,7 @@ import position from './position';
 import polyhedron from './polyhedron';
 import rotation from './rotation';
 import keyPressed from './key-pressed';
+import orientation from './orientation';
 
 export default combineReducers({
   stage,
@@ -11,4 +12,5 @@ export default combineReducers({
   polyhedron,
   rotation,
   keyPressed,
+  orientation,
 });

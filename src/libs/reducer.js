@@ -86,7 +86,7 @@ export const createReducer = name => {
   reducer.update = (id, value) => {
     return {
       type: UPDATE_TYPE,
-      payload: { id, value },
+      payload: { id, ...value },
     };
   };
 

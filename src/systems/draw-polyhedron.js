@@ -1,5 +1,5 @@
 import { insertAt, intersection, sortedIndex } from '../libs/array';
-import { dot, faceTo2d, normal, unit } from '../libs/vector';
+import { dot, faceTo2d, multiplyMatrixVector, normal, unit } from '../libs/vector';
 import { shadeOf } from '../libs/color';
 import { fillAndStroke, toPixels, trace } from '../libs/canvas';
 
@@ -12,16 +12,17 @@ const pointOfView = {
 }
 
 export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
-  const { polyhedron, position, stage } = getState();
-  const ids = intersection(polyhedron.allIds, position.allIds);
+  const { polyhedron, position, orientation, stage } = getState();
+  const ids = intersection(polyhedron.allIds, position.allIds, orientation.allIds);
 
   const compareFaces = (a, b) => a[0][2] - b[0][2];
   const sortedFaces = [];
 
   ids.forEach(id => {
     const { faces } = polyhedron.byId[id];
+    const { matrix: orientationMatrix } = orientation.byId[id];
     faces.forEach(face => {
-      // TODO: Apply rotation before checking if face is perpendicular towards "camera"
+      face = face.map(vector => multiplyMatrixVector(orientationMatrix, vector));
       if (normal(face)[2] > 0) {
         const index = sortedIndex(sortedFaces, face, compareFaces);
         insertAt(sortedFaces, index, face);
@@ -35,6 +36,9 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
   sortedFaces.forEach(face => {
     const shade = dot(unit(normal(face)), unit(light));
     const fillStyle = shadeOf([0, 0, 255], shade);
+    // `faceTo2d` involves quite a lot of calculation, but can be skipped entirely
+    // if correct behaviour is expected, ie. just remove the z component from the
+    // 3d vector
     const polygon = faceTo2d(face, pointOfView.rightDir, pointOfView.upDir)
       .map(([x, y]) => mapCoordinates(x, y));
     trace(ctx, polygon);

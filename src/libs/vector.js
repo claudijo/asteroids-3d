@@ -1,10 +1,16 @@
+import { sum, zip } from './array';
+
 export const length = vector => {
   return Math.sqrt(sum(...vector.map(num => num ** 2)));
 };
 
-export const sum = (...nums) => {
-  return nums.reduce((acc, num) => acc + num);
-}
+export const add = (...vectors) => {
+  return vectors[0].map((_, i) => {
+    return vectors.reduce((acc, vector) => {
+      return acc + vector[i];
+    }, 0);
+  });
+};
 
 export const subtract = (vec1, vec2) => {
   return vec1.map((n, i) => n - vec2[i]);
@@ -42,6 +48,11 @@ export const component = (vector, direction) => {
   return dot(vector, direction) / length(direction);
 };
 
+export const projectXy = v => {
+  const [x, y] = v;
+  return [x, y]
+}
+
 export const vectorTo2d = (vector, rightDir = [1, 0, 0], upDir = [0, 1, 0]) => {
   return [
     component(vector, rightDir),
@@ -62,3 +73,61 @@ export const unit = vector => {
 export const normal = face => {
   return cross(subtract(face[1], face[0]), subtract(face[2], face[0]));
 };
+
+export const linearCombination = (scalars, ...vectors) => {
+  const scaled = scalars.map((s, i) => multiply(s, vectors[i]));
+  return add(...scaled);
+};
+
+// Matrix columns expected to be laid out as rows in a two dimensional array
+export const multiplyMatrixVector = (matrix, vector) => {
+  return linearCombination(vector, ...zip(...matrix));
+};
+
+export const matrixMultiply = (a, b) => {
+  return a.map(row => {
+    return zip(...b).map(col => {
+      return dot(row, col);
+    });
+  });
+};
+
+export const zRotationMatrix = r => [
+  [Math.cos(r), -Math.sin(r), 0],
+  [Math.sin(r), Math.cos(r), 0],
+  [0, 0, 1],
+];
+
+export const xRotationMatrix = r => [
+  [1, 0, 0],
+  [0, Math.cos(r), -Math.sin(r)],
+  [0, Math.sin(r), Math.cos(r)],
+];
+
+export const yRotationMatrix = r => [
+  [Math.cos(r), 0, Math.sin(r)],
+  [0, 1, 0],
+  [-Math.sin(r), 0, Math.cos(r)],
+];
+
+export const rotationMatrix = (rx, ry, rz) => {
+  // return [
+  //   [0, 0, 1],
+  //   [Math.sin(rx) * Math.cos(rz) + Math.cos()],
+  //   [], [], []
+  // ]
+}
+
+export const translate3d = (translation, target) => {
+  const [a, b, c] = translation;
+  const [x,y,z] = target;
+  const matrix = [
+    [1,0,0,0,a],
+    [0,1,0,0,b],
+    [0,0,1,0,c],
+    [0,0,0,0,1]
+  ];
+  const vector = [x, y, z, 1];
+  const [xOut, yOut, zOut] = multiplyMatrixVector(matrix, vector);
+  return [xOut, yOut, zOut];
+}

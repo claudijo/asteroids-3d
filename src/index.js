@@ -8,6 +8,7 @@ import { drawPolyhedron } from './systems/draw-polyhedron';
 import { initUserInput } from './assemblages/user-input';
 import { GAME_PLAY_STAGE_ID, SHIP_ID } from './constants';
 import { clearStage } from './systems/clear-stage';
+import { userControl } from './systems/user-control';
 
 // const stage = { width: 1920, height: 1080}
 const stage = { width: 480, height: 270 };
@@ -22,13 +23,14 @@ document.body.appendChild(canvasElement);
 
 store.subscribe(gameLoop.run);
 
-store.subscribe(() => {
-  console.log(store.getState())
-})
+// store.subscribe(() => {
+//   console.log(store.getState())
+// })
 
 gameLoop.addTask(
   clearStage(GAME_PLAY_STAGE_ID),
   drawPolyhedron(GAME_PLAY_STAGE_ID),
+  userControl(GAME_PLAY_STAGE_ID),
 );
 
 initUserInput(store.dispatch)

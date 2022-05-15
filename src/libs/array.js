@@ -6,6 +6,12 @@ export const sum = (...nums) => {
   return nums.reduce((acc, num) => acc + num, 0);
 }
 
+export const zip = (...arrays) => {
+  return arrays[0].map((_, i) => {
+    return arrays.map(array => array[i]);
+  });
+}
+
 export const intersection = (arr1, arr2, ...rest) => {
   const filtered = arr1.filter(value => arr2.includes(value));
   return rest.length > 0
