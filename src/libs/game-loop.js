@@ -1,4 +1,4 @@
-import { throttle } from './rate-limit';
+import { debounce, throttle } from './rate-limit';
 
 export const createGameLoop = store => {
   let tasks = [];
@@ -11,12 +11,16 @@ export const createGameLoop = store => {
     }
   }
 
-  const run = throttle(() => {
+  const run = debounce(() => {
     const now = performance.now();
     const elapsed = now - timestamp;
     tasks.forEach(task => task(store.getState, store.dispatch, elapsed))
     timestamp = now;
   });
 
-  return { addTask, run };
+  const resetTimeStamp = () => {
+    timestamp = performance.now()
+  }
+
+  return { addTask, run, resetTimeStamp };
 }

@@ -20,10 +20,11 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
 
   ids.forEach(id => {
     const { faces } = polyhedron.byId[id];
-    const { matrix: orientationMatrix } = orientation.byId[id];
+    const { matrix } = orientation.byId[id];
+
     faces.forEach(face => {
-      face = face.map(vector => multiplyMatrixVector(orientationMatrix, vector));
-      if (normal(face)[2] > 0) {
+      face = face.map(vector => multiplyMatrixVector(matrix, vector));
+      if (true || normal(face)[2] > 0) {
         const index = sortedIndex(sortedFaces, face, compareFaces);
         insertAt(sortedFaces, index, face);
       }

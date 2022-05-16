@@ -1,7 +1,6 @@
 import stage from '../components/stage';
-import { GAME_PLAY_STAGE_ID } from '../constants';
 
-export const setStage = (dispatch, { canvasElement, world, id }) => {
+export const setStage = (getState, dispatch, { canvasElement, world, id }) => {
   const ctx = canvasElement.getContext('2d');
   const width = canvasElement.width;
   const height = canvasElement.height;
