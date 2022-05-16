@@ -15,19 +15,20 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
   const { polyhedron, position, orientation, stage } = getState();
   const ids = intersection(polyhedron.allIds, position.allIds, orientation.allIds);
 
-  const compareFaces = (a, b) => a[0][2] - b[0][2];
-  const sortedFaces = [];
+  const compareFaces = (a, b) => a.face[0][2] - b.face[0][2];
+  const sortedSurfaces = [];
 
   ids.forEach(id => {
-    const { faces } = polyhedron.byId[id];
+    const { faces, color = [0, 0, 0], colors = [] } = polyhedron.byId[id];
     const { roll, pitch, yaw } = orientation.byId[id];
 
-    faces.forEach(face => {
+    faces.forEach((face, index) => {
       face = face.map(vector => toGlobalFrame(yaw, pitch, roll, vector));
+      const faceColor = colors.length ? colors[index] : color;
 
       if (true || normal(face)[2] > 0) {
-        const index = sortedIndex(sortedFaces, face, compareFaces);
-        insertAt(sortedFaces, index, face);
+        const index = sortedIndex(sortedSurfaces, { face }, compareFaces);
+        insertAt(sortedSurfaces, index, { face, color: faceColor });
       }
     });
   });
@@ -35,9 +36,10 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
   const { ctx, width, height, localWidth, localHeight } = stage.byId[stageId];
   const mapCoordinates = toPixels(width, height, localWidth, localHeight);
 
-  sortedFaces.forEach(face => {
+  sortedSurfaces.forEach(surface => {
+    const { face, color } = surface;
     const shade = dot(unit(normal(face)), unit(light));
-    const fillStyle = shadeOf([0, 0, 255], shade);
+    const fillStyle = shadeOf(color, shade);
     // `faceTo2d` involves quite a lot of calculation, but can be skipped entirely
     // if correct behaviour is expected, ie. just remove the z component from the
     // 3d vector

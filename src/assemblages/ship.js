@@ -2,7 +2,6 @@ import shipFaces from '../wireframes/ship.json';
 import rotationComponent from '../components/rotation';
 import positionComponent from '../components/position';
 import polyhedronComponent from '../components/polyhedron';
-import { matrixMultiply, xRotationMatrix } from '../libs/vector';
 import orientationComponent from '../components/orientation';
 
 export const addShip = (getState, dispatch, { id }) => {
@@ -18,7 +17,9 @@ export const addShip = (getState, dispatch, { id }) => {
   // dispatch(setAppearance(id, {
   //   fillStyle: 'Blue'
   // }))
-  dispatch(polyhedronComponent.add(id, { faces: shipFaces }));
+  dispatch(polyhedronComponent.add(id, {
+    faces: shipFaces, color: [0, 0, 255]
+  }));
 
   window.addEventListener('keydown', event => {
     if (event.repeat) {
