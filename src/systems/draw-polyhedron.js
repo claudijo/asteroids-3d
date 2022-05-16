@@ -1,5 +1,5 @@
 import { insertAt, intersection, sortedIndex } from '../libs/array';
-import { dot, faceTo2d, multiplyMatrixVector, normal, unit } from '../libs/vector';
+import { dot, faceTo2d, multiplyMatrixVector, normal, toGlobalFrame, unit, zToGlobal } from '../libs/vector';
 import { shadeOf } from '../libs/color';
 import { fillAndStroke, toPixels, trace } from '../libs/canvas';
 
@@ -20,10 +20,11 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
 
   ids.forEach(id => {
     const { faces } = polyhedron.byId[id];
-    const { matrix } = orientation.byId[id];
+    const { roll, pitch, yaw } = orientation.byId[id];
 
     faces.forEach(face => {
-      face = face.map(vector => multiplyMatrixVector(matrix, vector));
+      face = face.map(vector => toGlobalFrame(yaw, pitch, roll, vector));
+
       if (true || normal(face)[2] > 0) {
         const index = sortedIndex(sortedFaces, face, compareFaces);
         insertAt(sortedFaces, index, face);

@@ -128,6 +128,33 @@ export const translate3d = (translation, target) => {
     [0,0,0,0,1]
   ];
   const vector = [x, y, z, 1];
-  const [xOut, yOut, zOut] = multiplyMatrixVector(matrix, vector);
-  return [xOut, yOut, zOut];
+  return multiplyMatrixVector(matrix, vector);
+}
+
+export const zToGlobal = (yaw, vector) => {
+  const matrix = [
+    [Math.cos(yaw), -Math.sin(yaw), 0],
+    [Math.sin(yaw), Math.cos(yaw), 0],
+    [0, 0, 1]
+  ]
+  return multiplyMatrixVector(matrix, vector);
+}
+
+export const toGlobalFrame = (yaw, pitch, roll , vector) => {
+  const matrix = [
+    [
+      Math.cos(yaw) * Math.cos(pitch),
+      Math.cos(yaw) * Math.sin(pitch) * Math.sin(roll) - Math.sin(yaw) * Math.cos(roll),
+      Math.cos(yaw) * Math.sin(pitch) * Math.cos(roll) + Math.sin(yaw) * Math.sin(roll),
+    ], [
+      Math.sin(yaw) * Math.cos(pitch),
+      Math.sin(yaw) * Math.sin(pitch) * Math.sin(roll) + Math.cos(yaw) * Math.cos(roll),
+      Math.sin(yaw) * Math.sin(pitch) * Math.cos(roll) - Math.cos(yaw) * Math.sin(roll),
+    ], [
+      -Math.sin(pitch),
+      Math.cos(pitch) * Math.sin(roll),
+      Math.cos(pitch) * Math.cos(roll)
+    ]
+  ]
+  return multiplyMatrixVector(matrix, vector);
 }

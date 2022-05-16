@@ -8,21 +8,20 @@ export const rotate = stageId => (getState, dispatch, elapsed) => {
   const r = elapsed / 1000;
 
   ids.forEach(id => {
-    let { matrix } = orientation.byId[id];
-    const { vx, vy, vz } = rotation.byId[id];
-
-    if (vx !== 0) {
-      matrix = matrixMultiply(matrix, xRotationMatrix(r * vx))
+    const { roll, pitch, yaw } = orientation.byId[id];
+    const { rollVelocity, pitchVelocity, yawVelocity, maxRoll, minRoll } = rotation.byId[id];
+    if (yawVelocity !== 0) {
+      dispatch(orientationComponent.update(id, { yaw: yaw + yawVelocity * r }));
     }
 
-    if (vy !== 0) {
-      matrix = matrixMultiply(matrix, yRotationMatrix(r * vy))
-    }
+    if (rollVelocity !== 0) {
+      if (rollVelocity < 0 && roll >= minRoll) {
+        dispatch(orientationComponent.update(id, { roll: roll + rollVelocity * r }));
+      }
 
-    if (vz !== 0) {
-      matrix = matrixMultiply(matrix, zRotationMatrix(r * vz));
+      if (rollVelocity > 0 && roll <= maxRoll) {
+        dispatch(orientationComponent.update(id, { roll: roll + rollVelocity * r }));
+      }
     }
-
-    dispatch(orientationComponent.update(id, { matrix }))
-  })
-}
+  });
+};

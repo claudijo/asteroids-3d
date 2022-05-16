@@ -18,9 +18,5 @@ export const createGameLoop = store => {
     timestamp = now;
   });
 
-  const resetTimeStamp = () => {
-    timestamp = performance.now()
-  }
-
-  return { addTask, run, resetTimeStamp };
+  return { addTask, run };
 }
