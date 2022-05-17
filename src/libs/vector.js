@@ -140,6 +140,7 @@ export const zToGlobal = (yaw, vector) => {
   return multiplyMatrixVector(matrix, vector);
 }
 
+// https://automaticaddison.com/how-to-describe-the-rotation-of-a-robot-in-3d/
 export const toGlobalFrame = (yaw, pitch, roll , vector) => {
   const matrix = [
     [

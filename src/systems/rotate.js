@@ -9,9 +9,13 @@ export const rotate = stageId => (getState, dispatch, elapsed) => {
 
   ids.forEach(id => {
     const { roll, pitch, yaw } = orientation.byId[id];
-    const { rollVelocity, pitchVelocity, yawVelocity, maxRoll, minRoll } = rotation.byId[id];
+    const { rollVelocity, pitchVelocity, yawVelocity, maxRoll = Infinity, minRoll = -Infinity } = rotation.byId[id];
     if (yawVelocity !== 0) {
       dispatch(orientationComponent.update(id, { yaw: yaw + yawVelocity * r }));
+    }
+
+    if (pitchVelocity !== 0) {
+      dispatch(orientationComponent.update(id, { pitch: pitch + pitchVelocity * r }));
     }
 
     if (rollVelocity !== 0) {

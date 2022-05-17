@@ -1,4 +1,4 @@
-import shipFaces from '../wireframes/ship.json';
+import shipFaces from '../meshes/ship.json';
 import rotationComponent from '../components/rotation';
 import positionComponent from '../components/position';
 import polyhedronComponent from '../components/polyhedron';
@@ -14,9 +14,6 @@ export const addShip = (getState, dispatch, { id }) => {
   //   }));
   // dispatch(setVelocity(id, [0,0,0]));
   // dispatch(setAcceleration(id, [0,0,0]));
-  // dispatch(setAppearance(id, {
-  //   fillStyle: 'Blue'
-  // }))
   dispatch(polyhedronComponent.add(id, {
     faces: shipFaces, color: [0, 0, 255]
   }));

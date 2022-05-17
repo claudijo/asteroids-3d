@@ -1,5 +1,15 @@
 import { insertAt, intersection, sortedIndex } from '../libs/array';
-import { dot, faceTo2d, multiplyMatrixVector, normal, toGlobalFrame, unit, zToGlobal } from '../libs/vector';
+import {
+  add,
+  dot,
+  faceTo2d,
+  multiply,
+  multiplyMatrixVector,
+  normal,
+  toGlobalFrame,
+  unit,
+  zToGlobal,
+} from '../libs/vector';
 import { shadeOf } from '../libs/color';
 import { fillAndStroke, toPixels, trace } from '../libs/canvas';
 
@@ -26,9 +36,9 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
       face = face.map(vector => toGlobalFrame(yaw, pitch, roll, vector));
       const faceColor = colors.length ? colors[index] : color;
 
-      if (true || normal(face)[2] > 0) {
+      if (normal(face)[2] > 0) {
         const index = sortedIndex(sortedSurfaces, { face }, compareFaces);
-        insertAt(sortedSurfaces, index, { face, color: faceColor });
+        insertAt(sortedSurfaces, index, { id, face, color: faceColor });
       }
     });
   });
@@ -37,13 +47,19 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
   const mapCoordinates = toPixels(width, height, localWidth, localHeight);
 
   sortedSurfaces.forEach(surface => {
-    const { face, color } = surface;
+    const { id, face, color } = surface;
     const shade = dot(unit(normal(face)), unit(light));
     const fillStyle = shadeOf(color, shade);
+    const { coords } = position.byId[id];
+
+    const transformed = face.map(vector => {
+      return add(coords, vector)
+    });
+
     // `faceTo2d` involves quite a lot of calculation, but can be skipped entirely
-    // if correct behaviour is expected, ie. just remove the z component from the
+    // if current behaviour is expected, ie. just remove the z component from the
     // 3d vector
-    const polygon = faceTo2d(face, pointOfView.rightDir, pointOfView.upDir)
+    const polygon = faceTo2d(transformed, pointOfView.rightDir, pointOfView.upDir)
       .map(([x, y]) => mapCoordinates(x, y));
     trace(ctx, polygon);
     fillAndStroke(ctx, { lineWidth: 1, strokeStyle: fillStyle, fillStyle });
