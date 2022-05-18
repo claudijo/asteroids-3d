@@ -6,9 +6,11 @@ export const move = stageId => (getState, dispatch, elapsed) => {
   const ids = intersection(position.allIds, velocity.allIds);
   const r = elapsed / 1000;
 
-  const {localWidth: width, localHeight: height } = stage.byId[stageId];
+  const { localWidth: width, localHeight: height } = stage.byId[stageId];
   const halfWidth = width / 2;
   const halfHeight = height / 2;
+
+  const margin = 10;
 
   ids.forEach(id => {
     const { xPos, yPos, zPos } = position.byId[id];
@@ -16,11 +18,11 @@ export const move = stageId => (getState, dispatch, elapsed) => {
 
     if (xVelocity !== 0) {
       let x = xPos + xVelocity * r;
-      if (x < -halfWidth) {
-        x += width
+      if (x < -halfWidth - margin) {
+        x += width + margin * 2;
       }
       if (x > halfWidth) {
-        x -= width
+        x -= width + margin * 2;
       }
       dispatch(positionComponent.update(id, { xPos: x }));
     }
@@ -28,11 +30,11 @@ export const move = stageId => (getState, dispatch, elapsed) => {
     if (yVelocity !== 0) {
       let y = yPos + yVelocity * r;
 
-      if (y < -halfHeight) {
-        y += height
+      if (y < -halfHeight - margin) {
+        y += height + margin * 2;
       }
-      if (y > halfHeight) {
-        y -= height
+      if (y > halfHeight + margin) {
+        y -= height + margin * 2;
       }
       dispatch(positionComponent.update(id, { yPos: y }));
     }
