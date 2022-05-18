@@ -1,12 +1,26 @@
-export const octasphere = (subdivision = 0) => {
-  return [
-    [[1,0,0], [0,1,0], [0,0,1]],
-    [[1,0,0], [0,0,-1], [0,1,0]],
-    [[1,0,0], [0,0,1], [0,-1,0]],
-    [[1,0,0], [0,-1,0], [0,0,-1]],
-    [[-1,0,0], [0,0,1], [0,1,0]],
-    [[-1,0,0], [0,1,0], [0,0,-1]],
-    [[-1,0,0], [0,-1,0], [0,0,1]],
-    [[-1,0,0], [0,0,-1], [0,-1,0]],
-  ];
+import { middle, unit } from './vector';
+
+export const subdivide = (shape, level = 1) => {
+  if (level === 0) {
+    return shape;
+  }
+
+  const faces = [];
+
+  shape.forEach(face => {
+    // Replace each triangular face by four new triangular faces
+    const aMiddle = unit(middle(face[0], face[1]));
+    const bMiddle = unit(middle(face[1], face[2]));
+    const cMiddle = unit(middle(face[2], face[0]));
+
+    faces.push([face[0], aMiddle, cMiddle])
+    faces.push([face[1], bMiddle, aMiddle]);
+    faces.push([face[2], cMiddle, bMiddle]);
+    faces.push([aMiddle, bMiddle, cMiddle]);
+  })
+
+  return subdivide(faces, level - 1);
 }
+
+
+

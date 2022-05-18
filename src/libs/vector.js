@@ -159,3 +159,9 @@ export const toGlobalFrame = (yaw, pitch, roll , vector) => {
   ]
   return multiplyMatrixVector(matrix, vector);
 }
+
+export const middle = (vec1, vec2) => {
+  return vec1.map((n, i) => {
+    return (n + vec2[i]) / 2;
+  })
+}

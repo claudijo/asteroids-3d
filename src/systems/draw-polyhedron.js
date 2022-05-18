@@ -14,7 +14,7 @@ import { shadeOf } from '../libs/color';
 import { fillAndStroke, toPixels, trace } from '../libs/canvas';
 
 // TODO: Maybe put this is in a component
-const light = [1, 2, 3];
+const light = [-1, 2, 4];
 
 const pointOfView = {
   rightDir: [1, 0, 0],
@@ -25,7 +25,13 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
   const { polyhedron, position, orientation, stage } = getState();
   const ids = intersection(polyhedron.allIds, position.allIds, orientation.allIds);
 
-  const compareFaces = (a, b) => a.face[0][2] - b.face[0][2];
+  const compareFaces = (a, b) => {
+    if (a.id !== b.id) {
+      return b.id - a.id;
+    }
+    return a.face[0][2] - b.face[0][2];
+  }
+
   const sortedSurfaces = [];
 
   ids.forEach(id => {
@@ -37,7 +43,7 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
       const faceColor = colors.length ? colors[index] : color;
 
       if (normal(face)[2] > 0) {
-        const index = sortedIndex(sortedSurfaces, { face }, compareFaces);
+        const index = sortedIndex(sortedSurfaces, { id, face }, compareFaces);
         insertAt(sortedSurfaces, index, { id, face, color: faceColor });
       }
     });
