@@ -11,23 +11,24 @@ import { clearStage } from './systems/clear-stage';
 import { rotate } from './systems/rotate';
 import { addAsteroids } from './assemblages/asteroids';
 
-
 const stage = { width: 1920, height: 1080}
-// const stage = { width: 480, height: 270 };
-// const world = { width: 8, height: 4 };
-const world = { width: 128 * 2, height: 72 * 2 };
+const world = { width: 256, height: 144 };
 
 const store = createStore(rootReducer);
 const gameLoop = createGameLoop(store);
 
-const canvasElement = createElement('canvas', stage);
-document.body.appendChild(canvasElement);
+const gameCanvasElement = createElement('canvas',
+  {id: 'game-layer', ...stage},
+  { position: 'absolute', backgroundColor: '#333' }
+);
+const stageElement = createElement('div',
+  { id: 'stage' },
+  {position: 'relative', ...stage}
+);
+stageElement.appendChild(gameCanvasElement);
+document.body.appendChild(stageElement);
 
 store.subscribe(gameLoop.run);
-
-// store.subscribe(() => {
-//   console.log(store.getState())
-// })
 
 gameLoop.addTask(
   clearStage(GAME_PLAY_STAGE_ID),
@@ -35,6 +36,6 @@ gameLoop.addTask(
   drawPolyhedron(GAME_PLAY_STAGE_ID),
 );
 
-setStage(store.getState, store.dispatch, { canvasElement, world, id: GAME_PLAY_STAGE_ID });
+setStage(store.getState, store.dispatch, { canvasElement: gameCanvasElement, world, id: GAME_PLAY_STAGE_ID });
 addShip(store.getState, store.dispatch, { id: SHIP_ID });
 addAsteroids(store.getState, store.dispatch, { minId: ASTEROIDS_MIN_ID, maxId: ASTEROIDS_MAX_ID, world});
