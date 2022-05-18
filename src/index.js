@@ -12,10 +12,10 @@ import { rotate } from './systems/rotate';
 import { addAsteroids } from './assemblages/asteroids';
 
 
-// const stage = { width: 1920, height: 1080}
-const stage = { width: 480, height: 270 };
+const stage = { width: 1920, height: 1080}
+// const stage = { width: 480, height: 270 };
 // const world = { width: 8, height: 4 };
-const world = { width: 128, height: 72 };
+const world = { width: 128 * 2, height: 72 * 2 };
 
 const store = createStore(rootReducer);
 const gameLoop = createGameLoop(store);

@@ -1,5 +1,4 @@
 import { intersection } from '../libs/array';
-import { matrixMultiply, xRotationMatrix, yRotationMatrix, zRotationMatrix } from '../libs/vector';
 import orientationComponent from '../components/orientation';
 
 export const rotate = stageId => (getState, dispatch, elapsed) => {

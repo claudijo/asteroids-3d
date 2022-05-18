@@ -92,32 +92,6 @@ export const matrixMultiply = (a, b) => {
   });
 };
 
-export const zRotationMatrix = r => [
-  [Math.cos(r), -Math.sin(r), 0],
-  [Math.sin(r), Math.cos(r), 0],
-  [0, 0, 1],
-];
-
-export const xRotationMatrix = r => [
-  [1, 0, 0],
-  [0, Math.cos(r), -Math.sin(r)],
-  [0, Math.sin(r), Math.cos(r)],
-];
-
-export const yRotationMatrix = r => [
-  [Math.cos(r), 0, Math.sin(r)],
-  [0, 1, 0],
-  [-Math.sin(r), 0, Math.cos(r)],
-];
-
-export const rotationMatrix = (rx, ry, rz) => {
-  // return [
-  //   [0, 0, 1],
-  //   [Math.sin(rx) * Math.cos(rz) + Math.cos()],
-  //   [], [], []
-  // ]
-}
-
 export const translate3d = (translation, target) => {
   const [a, b, c] = translation;
   const [x,y,z] = target;

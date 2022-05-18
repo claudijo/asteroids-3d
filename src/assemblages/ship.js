@@ -5,7 +5,7 @@ import polyhedronComponent from '../components/polyhedron';
 import orientationComponent from '../components/orientation';
 
 export const addShip = (getState, dispatch, { id }) => {
-  dispatch(positionComponent.add(id, { coords: [0, 0, 0] }));
+  dispatch(positionComponent.add(id, { coords: [0, 30, 0] }));
   dispatch(orientationComponent.add(id, { roll: 0, pitch: 0, yaw: 0 }));
   dispatch(rotationComponent.add(id, { rollVelocity: 0, pitchVelocity: 0, yawVelocity: 0 }));
   // dispatch(keyboardControl.add(id,
