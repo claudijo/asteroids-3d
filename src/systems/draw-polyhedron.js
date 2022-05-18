@@ -56,10 +56,10 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
     const { id, face, color } = surface;
     const shade = dot(unit(normal(face)), unit(light));
     const fillStyle = shadeOf(color, shade);
-    const { coords } = position.byId[id];
+    const { xPos, yPos, zPos } = position.byId[id];
 
     const transformed = face.map(vector => {
-      return add(coords, vector)
+      return add([xPos, yPos, zPos], vector)
     });
 
     // `faceTo2d` involves quite a lot of calculation, but can be skipped entirely
@@ -70,6 +70,4 @@ export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
     trace(ctx, polygon);
     fillAndStroke(ctx, { lineWidth: 1, strokeStyle: fillStyle, fillStyle });
   });
-
-
 };

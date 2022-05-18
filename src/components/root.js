@@ -5,6 +5,7 @@ import polyhedron from './polyhedron';
 import rotation from './rotation';
 import keyPressed from './key-pressed';
 import orientation from './orientation';
+import velocity from './velocity';
 
 export default combineReducers({
   stage,
@@ -13,4 +14,5 @@ export default combineReducers({
   rotation,
   keyPressed,
   orientation,
+  velocity,
 });

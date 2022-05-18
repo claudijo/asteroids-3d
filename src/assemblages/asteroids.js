@@ -4,29 +4,26 @@ import { random, randomInt } from '../libs/number';
 import orientationComponent from '../components/orientation';
 import rotationComponent from '../components/rotation';
 import polyhedronComponent from '../components/polyhedron';
+import velocityComponent from '../components/velocity';
 import { distort, subdivide } from '../libs/mesh';
 import { multiply } from '../libs/vector';
 import icosahedron from '../meshes/icosahedron.json';
 import octahedron from '../meshes/octahedron.json';
-import tetrahedron from '../meshes/tetrahedron.json';
-
-const distorted = distort(icosahedron);
-
-// console.log(distorted);
 
 export const addAsteroids = (getState, dispatch, { minId, maxId, world }) => {
   const halfWidth = world.width / 2;
   const halfHeight = world.height / 2;
 
-  dispatch(positionComponent.add(2, { coords: [-30, 0, 0] }));
+  dispatch(positionComponent.add(2, { xPos: -30, yPos: 0, zPos: 0 }));
   dispatch(orientationComponent.add(2, { roll: 0, pitch: random(0, Math.PI * 2), yaw: random(0, Math.PI * 2) }));
   dispatch(rotationComponent.add(2, { rollVelocity: random(0.5, 2), pitchVelocity: 0, yawVelocity: 0 }));
+  dispatch(velocityComponent.add(2, { xVelocity: random(-15, 15), yVelocity: random(-15, 15), zVelocity: 0}));
   dispatch(polyhedronComponent.add(2, {
     faces: distort(subdivide(icosahedron, 0)).map(face => face.map(vector => multiply(4, vector))),
     color: [47,  79,  79]
   }))
 
-  dispatch(positionComponent.add(3, { coords: [0, 0, 0] }));
+  dispatch(positionComponent.add(3, { xPos: 0, yPos: 0, zPos: 0 }));
   dispatch(orientationComponent.add(3, { roll: 0, pitch: random(0, Math.PI * 2), yaw: random(0, Math.PI * 2) }));
   dispatch(rotationComponent.add(3, { rollVelocity: random(0.5, 2), pitchVelocity: 0, yawVelocity: 0 }));
   dispatch(polyhedronComponent.add(3, {
@@ -34,7 +31,7 @@ export const addAsteroids = (getState, dispatch, { minId, maxId, world }) => {
     color: [47,  79,  79]
   }))
 
-  dispatch(positionComponent.add(4, { coords: [30, 0, 0] }));
+  dispatch(positionComponent.add(4, { xPos: 30, yPos: 0, zPos: 0 }));
   dispatch(orientationComponent.add(4, { roll: 0, pitch: random(0, Math.PI * 2), yaw: random(0, Math.PI * 2) }));
   dispatch(rotationComponent.add(4, { rollVelocity: random(0.5, 2), pitchVelocity: 0, yawVelocity: 0 }));
   dispatch(polyhedronComponent.add(4, {
