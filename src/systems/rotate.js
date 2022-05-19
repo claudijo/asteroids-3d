@@ -1,5 +1,5 @@
 import { intersection } from '../libs/array';
-import orientationComponent from '../components/orientation';
+import { orientation as orientationComponent } from '../components';
 
 export const rotate = stageId => (getState, dispatch, deltaTime) => {
   const { orientation, rotation } = getState();

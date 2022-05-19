@@ -1,12 +1,13 @@
 import shipFaces from '../meshes/ship.json';
-import rotationComponent from '../components/rotation';
-import positionComponent from '../components/position';
-import polyhedronComponent from '../components/polyhedron';
-import orientationComponent from '../components/orientation';
-import lineSegmentComponent from '../components/line-segment';
+import { lineSegment as lineSegmentComponent } from '../components';
+import { orientation as orientationComponent } from '../components';
+import { polyhedron as polyhedronComponent } from '../components';
+import { position as positionComponent } from '../components';
+import { rotation as rotationComponent } from '../components';
+import { velocity as velocityComponent } from '../components';
 import { uid } from '../libs/uid';
-import { multiply, toCartesian } from '../libs/vector';
-import velocityComponent from '../components/velocity';
+import { toCartesian } from '../libs/vector';
+import { addProjectile } from './projectile';
 
 
 export const addShip = (getState, dispatch) => {
@@ -35,21 +36,10 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'Space') {
-      const projectileId = uid();
       const { position, orientation } = getState();
       const { xPos, yPos } = position.byId[id];
       const { yaw } = orientation.byId[id];
-
-      const [xVelocity, yVelocity] = toCartesian([50, yaw])
-
-      dispatch(positionComponent.add(projectileId, { xPos, yPos }));
-      dispatch(orientationComponent.add(projectileId, { yaw }));
-      dispatch(velocityComponent.add(projectileId, { xVelocity, yVelocity }));
-      dispatch(lineSegmentComponent.add(projectileId, {
-        length: 4,
-        width: 6,
-        color: [255,  0,  0],
-      }))
+      addProjectile(getState, dispatch, { xPos, yPos, yaw});
     }
   });
 

@@ -1,5 +1,5 @@
 import { intersection } from '../libs/array';
-import positionComponent from '../components/position';
+import { position as positionComponent } from '../components';
 
 export const move = stageId => (getState, dispatch, deltaTime) => {
   const { position, velocity, stage } = getState();

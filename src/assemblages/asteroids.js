@@ -1,10 +1,10 @@
-import positionComponent from '../components/position';
 import { range } from '../libs/array';
 import { random, randomInt } from '../libs/number';
-import orientationComponent from '../components/orientation';
-import rotationComponent from '../components/rotation';
-import polyhedronComponent from '../components/polyhedron';
-import velocityComponent from '../components/velocity';
+import { orientation as orientationComponent } from '../components';
+import { polyhedron as polyhedronComponent } from '../components';
+import { position as positionComponent } from '../components';
+import { rotation as rotationComponent } from '../components';
+import { velocity as velocityComponent } from '../components';
 import { distort, subdivide } from '../libs/mesh';
 import { multiply } from '../libs/vector';
 import icosahedron from '../meshes/icosahedron.json';

@@ -1,7 +1,7 @@
 import './styles/main.css';
 import { createElement } from './libs/html';
 import { createStore } from './libs/store';
-import rootReducer from './components/root';
+import rootReducer from './components';
 import { createGameLoop } from './libs/game-loop';
 import { setStage } from './assemblages/stage';
 import { addShip } from './assemblages/ship';
@@ -12,6 +12,7 @@ import { addAsteroids } from './assemblages/asteroids';
 import { move } from './systems/move';
 import { uid } from './libs/uid';
 import { drawLineSegment } from './systems/draw-line-segment';
+import { age } from './systems/age';
 
 const gameLayerStageId = uid();
 
@@ -35,6 +36,7 @@ document.body.appendChild(stageElement);
 store.subscribe(gameLoop.run);
 
 gameLoop.addTask(
+  age(gameLayerStageId),
   rotate(gameLayerStageId),
   move(gameLayerStageId),
   clearStage(gameLayerStageId),

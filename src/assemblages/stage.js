@@ -1,4 +1,4 @@
-import stage from '../components/stage';
+import { stage } from '../components';
 
 export const setStage = (getState, dispatch, { canvasElement, world, id }) => {
   const ctx = canvasElement.getContext('2d');
