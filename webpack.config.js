@@ -27,12 +27,16 @@ const productionConfig = merge([
       assetModuleFilename: "[name].[contenthash][ext][query]",
     },
   },
-  {
-    optimization: {
-      splitChunks: { chunks: "all" },
-      runtimeChunk: { name: "runtime" },
-    },
-  },
+
+  // https://survivejs.com/webpack/optimizing/separating-runtime/ or not?
+  { optimization: { splitChunks: { chunks: "all" } } },
+  // {
+  //   optimization: {
+  //     splitChunks: { chunks: "all" },
+  //     runtimeChunk: { name: "runtime" },
+  //   },
+  // },
+
   parts.minifyJavaScript(),
   parts.minifyCSS({ options: { preset: ["default"] } }),
   parts.generateSourceMaps({ type: 'source-map' }),
