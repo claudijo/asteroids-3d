@@ -3,8 +3,11 @@ import rotationComponent from '../components/rotation';
 import positionComponent from '../components/position';
 import polyhedronComponent from '../components/polyhedron';
 import orientationComponent from '../components/orientation';
+import { uid } from '../libs/uid';
 
-export const addShip = (getState, dispatch, { id }) => {
+export const addShip = (getState, dispatch) => {
+  const id = uid();
+
   dispatch(positionComponent.add(id,{ xPos: 0, yPos: 30, zPos: 0 }));
   dispatch(orientationComponent.add(id, { roll: 0, pitch: 0, yaw: 0 }));
   dispatch(rotationComponent.add(id, { rollVelocity: 0, pitchVelocity: 0, yawVelocity: 0 }));
@@ -18,19 +21,17 @@ export const addShip = (getState, dispatch, { id }) => {
     }
 
     if (event.code === 'ArrowLeft') {
-      dispatch({}); // Need to trigger elapsed timer if stage is idle
-      requestAnimationFrame(() => {
-        dispatch(rotationComponent.update(id, { yawVelocity: 2 }));
-        dispatch(rotationComponent.update(id, { rollVelocity: -4, minRoll: -0.6 }));
-      });
+      dispatch(rotationComponent.update(id, { yawVelocity: 2 }));
+      dispatch(rotationComponent.update(id, { rollVelocity: -4, minRoll: -0.6 }));
     }
 
     if (event.code === 'ArrowRight') {
-      dispatch({}); // Need to trigger elapsed timer if stage is idle
-      requestAnimationFrame(() => {
-        dispatch(rotationComponent.update(id, { yawVelocity: -2 }));
-        dispatch(rotationComponent.update(id, { rollVelocity: 4, maxRoll: 0.6 }));
-      });
+      dispatch(rotationComponent.update(id, { yawVelocity: -2 }));
+      dispatch(rotationComponent.update(id, { rollVelocity: 4, maxRoll: 0.6 }));
+    }
+
+    if (event.code === 'Space') {
+
     }
   });
 
