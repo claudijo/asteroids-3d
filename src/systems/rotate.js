@@ -1,10 +1,10 @@
 import { intersection } from '../libs/array';
 import orientationComponent from '../components/orientation';
 
-export const rotate = stageId => (getState, dispatch, elapsed) => {
+export const rotate = stageId => (getState, dispatch, deltaTime) => {
   const { orientation, rotation } = getState();
   const ids = intersection(orientation.allIds, rotation.allIds);
-  const r = elapsed / 1000;
+  const r = deltaTime / 1000;
 
   ids.forEach(id => {
     const { roll, pitch, yaw } = orientation.byId[id];

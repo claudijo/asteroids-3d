@@ -7,14 +7,14 @@ export const createGameLoop = store => {
   const addTask = (...newTasks) => {
     tasks = [...tasks, ...newTasks];
     return () => {
-      tasks = tasks.filter(t => t !== task);
+      tasks = tasks.filter(t => t !== newTasks.includes(t));
     }
   }
 
   const run = debounce(() => {
     const now = performance.now();
-    const elapsed = now - timestamp;
-    tasks.forEach(task => task(store.getState, store.dispatch, elapsed))
+    const deltaTime = now - timestamp;
+    tasks.forEach(task => task(store.getState, store.dispatch, deltaTime))
     timestamp = now;
   });
 

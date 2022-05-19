@@ -21,7 +21,7 @@ const pointOfView = {
   upDir: [0, 1, 0],
 }
 
-export const drawPolyhedron = stageId => (getState, dispatch, elapsed) => {
+export const drawPolyhedron = stageId => (getState, dispatch, deltaTime) => {
   const { polyhedron, position, orientation, stage } = getState();
   const ids = intersection(polyhedron.allIds, position.allIds, orientation.allIds);
 

@@ -58,7 +58,7 @@ export const createReducer = name => {
   const ADD_TYPE = `ADD_${NAME}`;
   const UPDATE_TYPE = `UPDATE_${NAME}`;
   const REMOVE_TYPE = `REMOVE_${NAME}`;
-  const CLEAR_TYPE = `CLEAR${NAME}`;
+  const CLEAR_TYPE = `CLEAR_${NAME}`;
 
   const reducer = (state = defaultState, action) => {
     const { type, payload: { id, ...data } = {} } = action;
