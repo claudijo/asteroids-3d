@@ -20,6 +20,20 @@ export const multiply = (scalar, vector) => {
   return vector.map(n => n * scalar);
 };
 
+export const toCartesian = polar => {
+  const [length, angle] = polar;
+  return [
+    length * Math.cos(angle),
+    length * Math.sin(angle),
+  ];
+};
+
+export const toPolar = cartesian => {
+  const [x, y] = cartesian;
+  const angle = Math.atan2(y, x);
+  return [length(cartesian), angle];
+};
+
 // Measure vector alignment. Used to check if vectors are perpendicular without
 // doing any trigonometry.
 export const dot = (vec1, vec2) => {

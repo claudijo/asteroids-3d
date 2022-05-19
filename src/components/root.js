@@ -6,6 +6,7 @@ import rotation from './rotation';
 import keyPressed from './key-pressed';
 import orientation from './orientation';
 import velocity from './velocity';
+import lineSegment from './line-segment';
 
 export default combineReducers({
   stage,
@@ -15,4 +16,5 @@ export default combineReducers({
   keyPressed,
   orientation,
   velocity,
+  lineSegment,
 });

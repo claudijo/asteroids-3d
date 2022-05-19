@@ -11,6 +11,7 @@ import { rotate } from './systems/rotate';
 import { addAsteroids } from './assemblages/asteroids';
 import { move } from './systems/move';
 import { uid } from './libs/uid';
+import { drawLineSegment } from './systems/draw-line-segment';
 
 const gameLayerStageId = uid();
 
@@ -38,6 +39,7 @@ gameLoop.addTask(
   move(gameLayerStageId),
   clearStage(gameLayerStageId),
   drawPolyhedron(gameLayerStageId),
+  drawLineSegment(gameLayerStageId),
 );
 
 setStage(store.getState, store.dispatch, {

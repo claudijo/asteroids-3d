@@ -13,8 +13,8 @@ export const move = stageId => (getState, dispatch, deltaTime) => {
   const margin = 10;
 
   ids.forEach(id => {
-    const { xPos, yPos, zPos } = position.byId[id];
-    const { xVelocity, yVelocity, zVelocity } = velocity.byId[id];
+    const { xPos = 0, yPos = 0, zPos = 0 } = position.byId[id];
+    const { xVelocity = 0, yVelocity = 0, zVelocity = 0 } = velocity.byId[id];
 
     if (xVelocity !== 0) {
       let x = xPos + xVelocity * r;

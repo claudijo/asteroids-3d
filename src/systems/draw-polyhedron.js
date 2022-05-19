@@ -3,15 +3,12 @@ import {
   add,
   dot,
   faceTo2d,
-  multiply,
-  multiplyMatrixVector,
   normal,
   toGlobalFrame,
   unit,
-  zToGlobal,
 } from '../libs/vector';
 import { shadeOf } from '../libs/color';
-import { fillAndStroke, toPixels, trace } from '../libs/canvas';
+import { fillAndStroke, toPixels, tracePolygon } from '../libs/canvas';
 
 // TODO: Maybe put this is in a component
 const light = [-1, 2, 4];
@@ -67,7 +64,8 @@ export const drawPolyhedron = stageId => (getState, dispatch, deltaTime) => {
     // 3d vector
     const polygon = faceTo2d(transformed, pointOfView.rightDir, pointOfView.upDir)
       .map(([x, y]) => mapCoordinates(x, y));
-    trace(ctx, polygon);
+
+    tracePolygon(ctx, polygon);
     fillAndStroke(ctx, { lineWidth: 1, strokeStyle: fillStyle, fillStyle });
   });
 };

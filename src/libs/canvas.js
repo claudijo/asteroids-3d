@@ -1,10 +1,16 @@
-export const trace = (ctx, polygon) => {
+export const tracePolygon = (ctx, polygon) => {
   ctx.beginPath();
   ctx.moveTo(polygon[0][0], polygon[0][1]);
   for (let i = 1; i < polygon.length; i++) {
     ctx.lineTo(polygon[i][0], polygon[i][1]);
   }
   ctx.closePath();
+}
+
+export const traceLine = (ctx, start, end) => {
+  ctx.beginPath();
+  ctx.moveTo(start[0], start[1]);
+  ctx.lineTo(end[0], end[1]);
 }
 
 export const shade = (ctx, appearance) => {
