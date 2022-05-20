@@ -18,7 +18,7 @@ export const addProjectile = (getState, dispatch, { xPos, yPos, yaw }) => {
   dispatch(lifespanComponent.add(projectileId, { ttl: 2000 }));
   dispatch(lineSegmentComponent.add(projectileId, {
     length: 4,
-    width: 6,
+    pixelWidth: 4,
     color: [255,  0,  0],
   }))
 }

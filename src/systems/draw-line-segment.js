@@ -9,7 +9,7 @@ export const drawLineSegment = stageId => (getState, dispatch, deltaTime) => {
 
 
   ids.forEach(id => {
-    const { length, width, color = [0, 0, 0] } = lineSegment.byId[id];
+    const { length, pixelWidth, color = [0, 0, 0] } = lineSegment.byId[id];
     const { yaw } = orientation.byId[id];
 
     const { ctx, width: stageWidth, height: stageHeight, localWidth, localHeight } = stage.byId[stageId];
@@ -21,7 +21,7 @@ export const drawLineSegment = stageId => (getState, dispatch, deltaTime) => {
 
     ctx.save();
     traceLine(ctx, mapCoordinates(start.xPos, start.yPos), mapCoordinates(...end));
-    fillAndStroke(ctx, { lineWidth: width, strokeStyle: rgb });
+    fillAndStroke(ctx, { lineWidth: pixelWidth, strokeStyle: rgb });
     ctx.restore();
   });
 };

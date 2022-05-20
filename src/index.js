@@ -51,6 +51,6 @@ setStage(store.getState, store.dispatch, {
 });
 addShip(store.getState, store.dispatch);
 addAsteroids(store.getState, store.dispatch, {
-  count: 3,
+  count: 5,
   world,
 });
