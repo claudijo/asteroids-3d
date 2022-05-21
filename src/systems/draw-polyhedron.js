@@ -65,7 +65,9 @@ export const drawPolyhedron = stageId => (getState, dispatch, deltaTime) => {
     const polygon = faceTo2d(transformed, pointOfView.rightDir, pointOfView.upDir)
       .map(([x, y]) => mapCoordinates(x, y));
 
+    ctx.save();
     tracePolygon(ctx, polygon);
     fillAndStroke(ctx, { lineWidth: 1, strokeStyle: fillStyle, fillStyle });
+    ctx.restore();
   });
 };

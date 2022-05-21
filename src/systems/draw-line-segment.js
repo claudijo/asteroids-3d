@@ -6,8 +6,6 @@ export const drawLineSegment = stageId => (getState, dispatch, deltaTime) => {
   const { lineSegment, position, orientation, stage } = getState();
   const ids = intersection(lineSegment.allIds, position.allIds, orientation.allIds);
 
-
-
   ids.forEach(id => {
     const { length, pixelWidth, color = [0, 0, 0] } = lineSegment.byId[id];
     const { yaw } = orientation.byId[id];

@@ -10,9 +10,9 @@ export const age = stageId => (getState, dispatch, deltaTime) => {
     let { ttl } = lifespan.byId[id];
     ttl -= deltaTime;
 
-    if (ttl < 0) {
+    if (ttl <= 0) {
       Object.keys(rest).forEach(component => {
-        if (state[component].allIds.includes(id)) {
+        if (typeof state[component].byId[id] !== 'undefined') {
           dispatch(rest[component].remove(id));
         }
       });
