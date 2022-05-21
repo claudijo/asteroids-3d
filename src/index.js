@@ -13,6 +13,7 @@ import { move } from './systems/move';
 import { uid } from './libs/uid';
 import { drawLineSegment } from './systems/draw-line-segment';
 import { age } from './systems/age';
+import { yieldDamage } from './systems/yield-damage';
 
 const gameLayerStageId = uid();
 
@@ -36,9 +37,10 @@ document.body.appendChild(stageElement);
 store.subscribe(gameLoop.run);
 
 gameLoop.addTask(
-  age(gameLayerStageId),
   rotate(gameLayerStageId),
   move(gameLayerStageId),
+  yieldDamage(gameLayerStageId),
+  age(gameLayerStageId),
   clearStage(gameLayerStageId),
   drawPolyhedron(gameLayerStageId),
   drawLineSegment(gameLayerStageId),

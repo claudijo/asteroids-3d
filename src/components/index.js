@@ -9,6 +9,10 @@ export const rotation = createReducer('rotation');
 export const orientation = createReducer('orientation');
 export const velocity = createReducer('velocity');
 export const stage = createReducer('stage');
+export const health = createReducer('health');
+export const damage = createReducer('damage');
+export const hitSphere = createReducer('hitSphere');
+export const hitLine = createReducer('hitLine')
 
 export default combineReducers({
   stage,
@@ -19,4 +23,8 @@ export default combineReducers({
   velocity,
   lineSegment,
   lifespan,
+  health,
+  damage,
+  hitSphere,
+  hitLine,
 });
