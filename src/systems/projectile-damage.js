@@ -4,7 +4,7 @@ import { isPointInsideSphere, rayIntersectsTriangle } from '../libs/collision';
 import { health as healthComponent } from '../components';
 import { lifespan as lifespanComponent } from '../components';
 
-export const yieldDamage = stageId => (getState, dispatch, deltaTime) => {
+export const projectileDamage = stageId => (getState, dispatch, deltaTime) => {
   const { position, orientation, damage, hitLine, health, hitSphere, polyhedron, lifespan } = getState();
   const projectileIds = intersection(position.allIds, orientation.allIds, damage.allIds, hitLine.allIds, lifespan.allIds);
   const targetIds = intersection(position.allIds, orientation.allIds, health.allIds, hitSphere.allIds, polyhedron.allIds);
@@ -43,7 +43,7 @@ export const yieldDamage = stageId => (getState, dispatch, deltaTime) => {
       const intersectionPoint = rayIntersectsTriangle([xPos, yPos, 0], [0, 0, yaw], triangle, length);
       if (intersectionPoint) {
         dispatch(lifespanComponent.update(projectileId, { ttl: 0 }));
-        dispatch(healthComponent.update(targetId, { defence: health.byId[targetId].defence - 1}))
+        dispatch(healthComponent.update(targetId, { defence: 0 }))
       }
     })
   });
