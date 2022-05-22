@@ -1,4 +1,4 @@
-import { toCartesian } from '../libs/vector';
+import { add, toCartesian } from '../libs/vector';
 import {
   lineSegment as lineSegmentComponent,
   orientation as orientationComponent,
@@ -11,13 +11,15 @@ import { uid } from '../libs/uid';
 
 export const addProjectile = (getState, dispatch, { xPos, yPos, yaw }) => {
   const id = uid();
-  const [xVelocity, yVelocity] = toCartesian([60, yaw]);
   const rgb = [255,  0,  0];
   const projectileLength = 4;
 
-  dispatch(positionComponent.add(id, { xPos, yPos }));
+  const exitPoint = toCartesian([4, yaw]);
+  const projectilePosition = add([xPos, yPos], exitPoint);
+
+  dispatch(positionComponent.add(id, { xPos: projectilePosition[0], yPos: projectilePosition[1] }));
   dispatch(orientationComponent.add(id, { yaw }));
-  dispatch(velocityComponent.add(id, { xVelocity, yVelocity }));
+  dispatch(velocityComponent.add(id, { xVelocity: 0, yVelocity: 0, zVelocity: 0 }));
   dispatch(lifespanComponent.add(id, { ttl: 2000 }));
   dispatch(lineSegmentComponent.add(id, { length: projectileLength, pixelWidth: 4, color: rgb,}))
   dispatch(damageComponent.add(id, { attack: 1 }))
