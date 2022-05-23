@@ -18,6 +18,7 @@ import { accelerate } from './systems/accelerate';
 import { range } from './libs/array';
 import { randomInt } from './libs/number';
 import { degenerate } from './systems/degenerate';
+import { applyThrust } from './systems/apply-thrust';
 
 const gameLayerStageId = uid();
 
@@ -42,6 +43,7 @@ store.subscribe(gameLoop.run);
 
 gameLoop.addTask(
   rotate(gameLayerStageId),
+  applyThrust(gameLayerStageId),
   accelerate(gameLayerStageId),
   move(gameLayerStageId),
   projectileDamage(gameLayerStageId),

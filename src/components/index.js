@@ -15,6 +15,7 @@ export const damage = createReducer('damage');
 export const hitSphere = createReducer('hitSphere');
 export const hitLine = createReducer('hitLine')
 export const generation = createReducer('generation');
+export const thrust = createReducer('thrust');
 
 export default combineReducers({
   stage,
@@ -31,4 +32,5 @@ export default combineReducers({
   hitSphere,
   hitLine,
   generation,
+  thrust,
 });
