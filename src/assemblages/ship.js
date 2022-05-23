@@ -7,6 +7,7 @@ import {
   velocity as velocityComponent,
   acceleration as accelerationComponent,
   thrust as thrustComponent,
+  friction as frictionComponent,
 } from '../components';
 import { uid } from '../libs/uid';
 import { addProjectile } from './projectile';
@@ -20,6 +21,7 @@ export const addShip = (getState, dispatch) => {
   dispatch(velocityComponent.add(id, { xVelocity: 0, yVelocity: 0, zVelocity: 0}));
   dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0 }));
   dispatch(thrustComponent.add(id, { power: 0 }))
+  dispatch(frictionComponent.add(id, { inertia: 20 }))
   dispatch(polyhedronComponent.add(id, { faces: shipFaces, color: [128,   0,   0] }));
 
   window.addEventListener('keydown', event => {
