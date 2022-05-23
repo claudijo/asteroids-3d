@@ -14,6 +14,7 @@ import { uid } from './libs/uid';
 import { drawLineSegment } from './systems/draw-line-segment';
 import { age } from './systems/age';
 import { projectileDamage } from './systems/projectile-damage';
+import { accelerate } from './systems/accelerate';
 
 const gameLayerStageId = uid();
 
@@ -38,6 +39,7 @@ store.subscribe(gameLoop.run);
 
 gameLoop.addTask(
   rotate(gameLayerStageId),
+  accelerate(gameLayerStageId),
   move(gameLayerStageId),
   projectileDamage(gameLayerStageId),
   age(gameLayerStageId),
@@ -52,7 +54,4 @@ setStage(store.getState, store.dispatch, {
   world,
 });
 addShip(store.getState, store.dispatch);
-addAsteroids(store.getState, store.dispatch, {
-  count: 5,
-  world,
-});
+addAsteroids(store.getState, store.dispatch, { count: 5, world, });

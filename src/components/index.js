@@ -8,6 +8,7 @@ export const polyhedron = createReducer('polyhedron');
 export const rotation = createReducer('rotation');
 export const orientation = createReducer('orientation');
 export const velocity = createReducer('velocity');
+export const acceleration = createReducer('acceleration')
 export const stage = createReducer('stage');
 export const health = createReducer('health');
 export const damage = createReducer('damage');
@@ -21,6 +22,7 @@ export default combineReducers({
   rotation,
   orientation,
   velocity,
+  acceleration,
   lineSegment,
   lifespan,
   health,

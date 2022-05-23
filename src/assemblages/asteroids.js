@@ -1,6 +1,10 @@
 import { range } from '../libs/array';
 import { random, randomInt } from '../libs/number';
-import { hitSphere as hitSphereComponent, orientation as orientationComponent } from '../components';
+import {
+  acceleration as accelerationComponent,
+  hitSphere as hitSphereComponent,
+  orientation as orientationComponent,
+} from '../components';
 import { polyhedron as polyhedronComponent } from '../components';
 import { position as positionComponent } from '../components';
 import { rotation as rotationComponent } from '../components';
@@ -32,6 +36,7 @@ export const addAsteroids = (getState, dispatch, { count = 3, world }) => {
     dispatch(orientationComponent.add(id, { roll: 0, pitch: random(0, Math.PI * 2), yaw: random(0, Math.PI * 2) }));
     dispatch(rotationComponent.add(id, { rollVelocity: random(0.5, 2), pitchVelocity: 0, yawVelocity: 0 }));
     dispatch(velocityComponent.add(id, { xVelocity: random(-15, 15), yVelocity: random(-15, 15), zVelocity: 0 }));
+    dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0 }))
     dispatch(healthComponent.add(id, { defence: 1 }));
     dispatch(hitSphereComponent.add(id, { radius: hitSphereRadius }));
     dispatch(polyhedronComponent.add(id, { faces, color: rgb }));
