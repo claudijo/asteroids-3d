@@ -38,7 +38,7 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'ArrowUp') {
-      dispatch(thrustComponent.update(id, { force: 50 }));
+      dispatch(thrustComponent.update(id, { force: 100 }));
     }
 
     if (event.code === 'Space') {
