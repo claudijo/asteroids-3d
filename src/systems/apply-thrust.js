@@ -6,12 +6,12 @@ export const applyThrust = stageId => (getState, dispatch, deltaTime) => {
   const ids = intersection(thrust.allIds, acceleration.allIds, orientation.allIds);
 
   ids.forEach(id => {
-    const { force } = thrust.byId[id];
+    const { power } = thrust.byId[id];
 
     const { yaw } = orientation.byId[id];
 
-    const xAccel = force * Math.cos(yaw);
-    const yAccel = force * Math.sin(yaw);
+    const xAccel = power * Math.cos(yaw);
+    const yAccel = power * Math.sin(yaw);
 
     dispatch(accelerationComponent.update(id, {
       xAccel,

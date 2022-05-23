@@ -19,7 +19,7 @@ export const addShip = (getState, dispatch) => {
   dispatch(rotationComponent.add(id, { rollVelocity: 0, pitchVelocity: 0, yawVelocity: 0 }));
   dispatch(velocityComponent.add(id, { xVelocity: 0, yVelocity: 0, zVelocity: 0}));
   dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0 }));
-  dispatch(thrustComponent.add(id, { force: 0 }))
+  dispatch(thrustComponent.add(id, { power: 0 }))
   dispatch(polyhedronComponent.add(id, { faces: shipFaces, color: [128,   0,   0] }));
 
   window.addEventListener('keydown', event => {
@@ -38,7 +38,7 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'ArrowUp') {
-      dispatch(thrustComponent.update(id, { force: 100 }));
+      dispatch(thrustComponent.update(id, { power: 100 }));
     }
 
     if (event.code === 'Space') {
@@ -60,7 +60,7 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'ArrowUp') {
-      dispatch(thrustComponent.update(id, { force: 0 }));
+      dispatch(thrustComponent.update(id, { power: 0 }));
     }
   });
 
