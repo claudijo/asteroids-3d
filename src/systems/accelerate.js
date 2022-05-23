@@ -1,4 +1,5 @@
 import { intersection } from '../libs/array';
+import { length, multiply } from '../libs/vector';
 import { velocity as velocityComponent } from '../components';
 
 export const accelerate = stageId => (getState, dispatch, deltaTime) => {
@@ -7,20 +8,16 @@ export const accelerate = stageId => (getState, dispatch, deltaTime) => {
   const r = deltaTime / 1000;
 
   ids.forEach(id => {
-    const { xVelocity = 0, yVelocity = 0, zVelocity = 0 } = velocity.byId[id];
-    const { xAccel = 0, yAccel = 0, zAccel = 0 } = acceleration.byId[id];
+    const { xVelocity = 0, yVelocity = 0 } = velocity.byId[id];
+    const { xAccel = 0, yAccel = 0, limit = Infinity } = acceleration.byId[id];
 
-    if (xAccel !== 0) {
-      dispatch(velocityComponent.update(id, { xVelocity: xVelocity + xAccel * r}));
+    if (xAccel !== 0 || yAccel !== 0) {
+      let velocityVector = [xVelocity + xAccel * r, yVelocity + yAccel * r];
+      const speed = length(velocityVector);
+      if (speed > limit) {
+        velocityVector = multiply(limit / speed, velocityVector);
+      }
+      dispatch(velocityComponent.update(id, { xVelocity: velocityVector[0], yVelocity: velocityVector[1]}));
     }
-
-    if (yAccel !== 0) {
-      dispatch(velocityComponent.update(id, { yVelocity: yVelocity + yAccel * r}));
-    }
-
-    if (zAccel !== 0) {
-      dispatch(velocityComponent.update(id, { zVelocity: zVelocity + zAccel * r}));
-    }
-
   })
 }

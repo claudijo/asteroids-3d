@@ -19,9 +19,9 @@ export const addShip = (getState, dispatch) => {
   dispatch(orientationComponent.add(id, { roll: 0, pitch: 0, yaw: 0 }));
   dispatch(rotationComponent.add(id, { rollVelocity: 0, pitchVelocity: 0, yawVelocity: 0 }));
   dispatch(velocityComponent.add(id, { xVelocity: 0, yVelocity: 0, zVelocity: 0}));
-  dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0 }));
+  dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0, limit: 100 }));
   dispatch(thrustComponent.add(id, { power: 0 }))
-  dispatch(frictionComponent.add(id, { inertia: 20 }))
+  dispatch(frictionComponent.add(id, { inertia: 15 }))
   dispatch(polyhedronComponent.add(id, { faces: shipFaces, color: [128,   0,   0] }));
 
   window.addEventListener('keydown', event => {
