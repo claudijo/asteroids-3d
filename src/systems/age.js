@@ -1,8 +1,9 @@
-import * as components from '../components';
 import { lifespan as lifespanComponent } from '../components';
+import * as componentsExports from '../components';
+
+const { 'default': _, ...components } = componentsExports;
 
 export const age = stageId => (getState, dispatch, deltaTime) => {
-  const { 'default': _, ...rest } = components;
   const state = getState();
   const { lifespan } = state;
 
@@ -11,9 +12,9 @@ export const age = stageId => (getState, dispatch, deltaTime) => {
     ttl -= deltaTime;
 
     if (ttl <= 0) {
-      Object.keys(rest).forEach(component => {
+      Object.keys(components).forEach(component => {
         if (typeof state[component].byId[id] !== 'undefined') {
-          dispatch(rest[component].remove(id));
+          dispatch(components[component].remove(id));
         }
       });
     } else {

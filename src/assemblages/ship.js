@@ -26,13 +26,13 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'ArrowLeft') {
-      dispatch(rotationComponent.update(id, { yawVelocity: 2 }));
-      dispatch(rotationComponent.update(id, { rollVelocity: -4, minRoll: -0.6 }));
+      dispatch(rotationComponent.update(id, { yawVelocity: 4 }));
+      dispatch(rotationComponent.update(id, { rollVelocity: -6, minRoll: -0.6 }));
     }
 
     if (event.code === 'ArrowRight') {
-      dispatch(rotationComponent.update(id, { yawVelocity: -2 }));
-      dispatch(rotationComponent.update(id, { rollVelocity: 4, maxRoll: 0.6 }));
+      dispatch(rotationComponent.update(id, { yawVelocity: -4 }));
+      dispatch(rotationComponent.update(id, { rollVelocity: 6, maxRoll: 0.6 }));
     }
 
     if (event.code === 'Space') {

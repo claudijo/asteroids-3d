@@ -14,6 +14,7 @@ export const health = createReducer('health');
 export const damage = createReducer('damage');
 export const hitSphere = createReducer('hitSphere');
 export const hitLine = createReducer('hitLine')
+export const generation = createReducer('generation');
 
 export default combineReducers({
   stage,
@@ -29,4 +30,5 @@ export default combineReducers({
   damage,
   hitSphere,
   hitLine,
+  generation,
 });

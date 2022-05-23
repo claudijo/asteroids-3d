@@ -8,13 +8,16 @@ import { addShip } from './assemblages/ship';
 import { drawPolyhedron } from './systems/draw-polyhedron';
 import { clearStage } from './systems/clear-stage';
 import { rotate } from './systems/rotate';
-import { addAsteroids } from './assemblages/asteroids';
+import { addAsteroid } from './assemblages/asteroid';
 import { move } from './systems/move';
 import { uid } from './libs/uid';
 import { drawLineSegment } from './systems/draw-line-segment';
 import { age } from './systems/age';
 import { projectileDamage } from './systems/projectile-damage';
 import { accelerate } from './systems/accelerate';
+import { range } from './libs/array';
+import { randomInt } from './libs/number';
+import { degenerate } from './systems/degenerate';
 
 const gameLayerStageId = uid();
 
@@ -43,15 +46,27 @@ gameLoop.addTask(
   move(gameLayerStageId),
   projectileDamage(gameLayerStageId),
   age(gameLayerStageId),
+  degenerate(gameLayerStageId),
   clearStage(gameLayerStageId),
   drawPolyhedron(gameLayerStageId),
   drawLineSegment(gameLayerStageId),
 );
 
+// Stage
 setStage(store.getState, store.dispatch, {
   id: gameLayerStageId,
   canvasElement: gameCanvasElement,
   world,
 });
+
+// Ship
 addShip(store.getState, store.dispatch);
-addAsteroids(store.getState, store.dispatch, { count: 5, world, });
+
+// Initial asteroids
+const halfWidth = world.width / 2;
+const halfHeight = world.height / 2;
+range(5).forEach(_ => {
+  const xPos = randomInt(-halfWidth, halfWidth);
+  const yPos = randomInt(-halfHeight, halfHeight);
+  addAsteroid(store.getState, store.dispatch, { cohort: 0, xPos, yPos });
+});
