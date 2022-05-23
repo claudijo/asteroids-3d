@@ -44,10 +44,11 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'Space') {
-      const { position, orientation } = getState();
+      const { position, orientation, velocity } = getState();
       const { xPos, yPos } = position.byId[id];
       const { yaw } = orientation.byId[id];
-      addProjectile(getState, dispatch, { xPos, yPos, yaw});
+      const { xVelocity, yVelocity } = velocity.byId[id];
+      addProjectile(getState, dispatch, { xPos, yPos, xVelocity, yVelocity, yaw});
     }
   });
 
