@@ -48,8 +48,8 @@ gameLoop.addTask(
   age(gameLayerStageId),
   degenerate(gameLayerStageId),
   clearStage(gameLayerStageId),
-  drawPolyhedron(gameLayerStageId),
   drawLineSegment(gameLayerStageId),
+  drawPolyhedron(gameLayerStageId),
 );
 
 // Stage

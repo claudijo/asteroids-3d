@@ -32,7 +32,7 @@ const getFaces = cohort => {
 const getRgb = cohort => {
   switch (cohort) {
     case 0:
-      return [70, 130, 180];
+      return [65, 105, 225];
     case 1:
       return [0, 100,   0];
     case 2:
