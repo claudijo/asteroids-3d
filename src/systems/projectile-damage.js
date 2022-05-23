@@ -35,15 +35,16 @@ export const projectileDamage = stageId => (getState, dispatch, deltaTime) => {
   broadCollisions.forEach(({ projectileId, targetId }) => {
     const { xPos, yPos } = position.byId[projectileId];
     const { yaw } = orientation.byId[projectileId];
-    const { length } = hitLine.byId[projectileId];
+    const { attack } = damage.byId[projectileId];
     const { faces } = polyhedron.byId[targetId];
     const targetPos = position.byId[targetId];
+    const { defence } = health.byId[targetId];
     const triangles = faces.map(f => f.map(v => add([targetPos.xPos, targetPos.yPos, targetPos.zPos], v)))
     triangles.forEach(triangle => {
-      const intersectionPoint = rayIntersectsTriangle([xPos, yPos, 0], [0, 0, yaw], triangle, length);
+      const intersectionPoint = rayIntersectsTriangle([xPos, yPos, 0], [0, 0, yaw], triangle);
       if (intersectionPoint) {
         dispatch(lifespanComponent.update(projectileId, { ttl: 0 }));
-        dispatch(healthComponent.update(targetId, { defence: 0 }))
+        dispatch(healthComponent.update(targetId, { defence: defence - attack }))
       }
     })
   });
