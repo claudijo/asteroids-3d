@@ -9,13 +9,13 @@ export const accelerate = stageId => (getState, dispatch, deltaTime) => {
 
   ids.forEach(id => {
     const { xVelocity = 0, yVelocity = 0 } = velocity.byId[id];
-    const { xAccel = 0, yAccel = 0, limit = Infinity } = acceleration.byId[id];
+    const { xAccel = 0, yAccel = 0, maxSpeed = Infinity } = acceleration.byId[id];
 
     if (xAccel !== 0 || yAccel !== 0) {
       let velocityVector = [xVelocity + xAccel * r, yVelocity + yAccel * r];
       const speed = length(velocityVector);
-      if (speed > limit) {
-        velocityVector = multiply(limit / speed, velocityVector);
+      if (speed > maxSpeed) {
+        velocityVector = multiply(maxSpeed / speed, velocityVector);
       }
       dispatch(velocityComponent.update(id, { xVelocity: velocityVector[0], yVelocity: velocityVector[1]}));
     }

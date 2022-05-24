@@ -8,22 +8,22 @@ export const rotate = stageId => (getState, dispatch, deltaTime) => {
 
   ids.forEach(id => {
     const { roll, pitch, yaw } = orientation.byId[id];
-    const { rollVelocity, pitchVelocity, yawVelocity, maxRoll = Infinity, minRoll = -Infinity } = rotation.byId[id];
-    if (yawVelocity !== 0) {
-      dispatch(orientationComponent.update(id, { yaw: yaw + yawVelocity * r }));
+    const { rollSpeed, pitchSpeed, yawSpeed, maxRoll = Infinity, minRoll = -Infinity } = rotation.byId[id];
+    if (yawSpeed !== 0) {
+      dispatch(orientationComponent.update(id, { yaw: yaw + yawSpeed * r }));
     }
 
-    if (pitchVelocity !== 0) {
-      dispatch(orientationComponent.update(id, { pitch: pitch + pitchVelocity * r }));
+    if (pitchSpeed !== 0) {
+      dispatch(orientationComponent.update(id, { pitch: pitch + pitchSpeed * r }));
     }
 
-    if (rollVelocity !== 0) {
-      if (rollVelocity < 0 && roll >= minRoll) {
-        dispatch(orientationComponent.update(id, { roll: roll + rollVelocity * r }));
+    if (rollSpeed !== 0) {
+      if (rollSpeed < 0 && roll >= minRoll) {
+        dispatch(orientationComponent.update(id, { roll: roll + rollSpeed * r }));
       }
 
-      if (rollVelocity > 0 && roll <= maxRoll) {
-        dispatch(orientationComponent.update(id, { roll: roll + rollVelocity * r }));
+      if (rollSpeed > 0 && roll <= maxRoll) {
+        dispatch(orientationComponent.update(id, { roll: roll + rollSpeed * r }));
       }
     }
   });

@@ -52,7 +52,7 @@ export const addAsteroid = (getState, dispatch, { cohort = 0, xPos, yPos }) => {
 
   dispatch(positionComponent.add(id, { xPos, yPos, zPos }));
   dispatch(orientationComponent.add(id, { roll: 0, pitch: random(0, Math.PI * 2), yaw: random(0, Math.PI * 2) }));
-  dispatch(rotationComponent.add(id, { rollVelocity: random(0.5, 2), pitchVelocity: 0, yawVelocity: 0 }));
+  dispatch(rotationComponent.add(id, { rollSpeed: random(0.5, 2), pitchSpeed: 0, yawSpeed: 0 }));
   dispatch(velocityComponent.add(id, {
     xVelocity: random(-speed, speed),
     yVelocity: random(-speed, speed),
