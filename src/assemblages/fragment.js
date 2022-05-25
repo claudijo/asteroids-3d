@@ -28,6 +28,6 @@ export const addFragment = (getState, dispatch, { xPos, yPos, zPos = 0, rgb = [6
     yVelocity,
   }));
   dispatch(accelerationComponent.add(id, { xAccel: -xVelocity, yAccel: -yVelocity, zAccel: 0 }))
-  dispatch(lifespanComponent.add(id, { ttl, fadeOut: ttl }));
+  dispatch(lifespanComponent.add(id, { ttl, fadeOut: ttl * 0.2 }));
   dispatch(polyhedronComponent.add(id, { faces, color: rgb }));
 }
