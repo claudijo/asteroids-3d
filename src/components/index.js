@@ -18,7 +18,6 @@ export const generation = createReducer('generation');
 export const thrust = createReducer('thrust');
 export const friction = createReducer('friction');
 export const angularAcceleration = createReducer('angularAcceleration');
-export const torque = createReducer('torque');
 
 export default combineReducers({
   stage,
@@ -37,6 +36,5 @@ export default combineReducers({
   generation,
   thrust,
   friction,
-  torque,
   angularAcceleration,
 });

@@ -9,6 +9,8 @@ export const projectileDamage = stageId => (getState, dispatch, deltaTime) => {
   const projectileIds = intersection(position.allIds, orientation.allIds, damage.allIds, hitLine.allIds, lifespan.allIds);
   const targetIds = intersection(position.allIds, orientation.allIds, health.allIds, hitSphere.allIds, polyhedron.allIds);
 
+  // TODO: Seems to be a bug here... If yaw is `0` (reproduce: fire without rotating first) no collision will be detected
+
   // Broad phase collision detection
   const projectileHeads = projectileIds.map(id => {
     const { xPos, yPos } = position.byId[id];
