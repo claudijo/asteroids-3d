@@ -13,5 +13,9 @@ export const shadeOf = (rgb, shade) => {
   const g = clamp(rgb[1] + Math.floor(percent / 100 * 255), 0, 255);
   const b = clamp(rgb[2] + Math.floor(percent / 100 * 255), 0, 255);
 
-  return `rgb(${r},${g},${b})`;
+  if (rgb.length === 3) {
+    return `rgba(${r},${g},${b})`;
+  }
+
+  return `rgba(${r},${g},${b},${rgb[3]})`;
 }

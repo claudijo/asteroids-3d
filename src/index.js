@@ -21,6 +21,7 @@ import { degenerate } from './systems/degenerate';
 import { applyThrust } from './systems/apply-thrust';
 import { slowDown } from './systems/slow-down';
 import { accelerateRotation } from './systems/accelerate-rotation';
+import { addFragment } from './assemblages/fragment';
 
 const gameLayerStageId = uid();
 

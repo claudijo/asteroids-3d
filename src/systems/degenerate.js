@@ -1,6 +1,7 @@
 import { intersection, range } from '../libs/array';
 import * as componentsExports from '../components';
-import { addAsteroid } from '../assemblages/asteroid';
+import { addAsteroid, getRgbForAsteroid } from '../assemblages/asteroid';
+import { addFragment } from '../assemblages/fragment';
 
 const { 'default': _, ...components } = componentsExports;
 
@@ -20,6 +21,10 @@ export const degenerate = stageId => (getState, dispatch, deltaTime) => {
         if (typeof state[component].byId[id] !== 'undefined') {
           dispatch(components[component].remove(id));
         }
+      });
+
+      range(10 * (3 - cohort)).forEach(_ => {
+        addFragment(getState, dispatch,{xPos, yPos, rgb: getRgbForAsteroid(cohort)});
       });
 
       if (cohort < 2) {

@@ -1,6 +1,5 @@
 import { random } from '../libs/number';
 import {
-  acceleration as accelerationComponent,
   hitSphere as hitSphereComponent,
   orientation as orientationComponent,
   polyhedron as polyhedronComponent,
@@ -29,7 +28,7 @@ const getFaces = cohort => {
   }
 };
 
-const getRgb = cohort => {
+export const getRgbForAsteroid = cohort => {
   switch (cohort) {
     case 0:
       return [65, 105, 225];
@@ -42,12 +41,11 @@ const getRgb = cohort => {
   }
 };
 
-export const addAsteroid = (getState, dispatch, { cohort = 0, xPos, yPos }) => {
+export const addAsteroid = (getState, dispatch, { cohort = 0, xPos, yPos, zPos = 0 }) => {
   const id = uid();
-  const zPos = 0;
   const faces = getFaces(cohort);
   const hitSphereRadius = Math.max(...faces.map(f => f.map(v => length(v))).flat());
-  const rgb = getRgb(cohort);
+  const rgb = getRgbForAsteroid(cohort);
   const speed = 15 * (cohort + 1);
 
   dispatch(positionComponent.add(id, { xPos, yPos, zPos }));
@@ -58,7 +56,6 @@ export const addAsteroid = (getState, dispatch, { cohort = 0, xPos, yPos }) => {
     yVelocity: random(-speed, speed),
     zVelocity: 0,
   }));
-  dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0 }));
   dispatch(healthComponent.add(id, { defence: 1 }));
   dispatch(hitSphereComponent.add(id, { radius: hitSphereRadius }));
   dispatch(polyhedronComponent.add(id, { faces, color: rgb }));
