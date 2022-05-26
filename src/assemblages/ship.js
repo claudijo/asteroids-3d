@@ -111,11 +111,9 @@ export const addShip = (getState, dispatch) => {
     }
 
     // Leveled out
-    if (yaw > -10 && yaw < 10) {
+    if (yaw >= -10 && yaw <= 10) {
       const { rotation } = getState();
       const { yawSpeed } = rotation.byId[id];
-
-      console.log(yawSpeed);
 
       if (yawSpeed > 0) {
         dispatch(angularAccelerationComponent.update(id, {
