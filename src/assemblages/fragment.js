@@ -15,7 +15,7 @@ import { distort } from '../libs/mesh';
 
 export const addFragment = (getState, dispatch, { xPos, yPos, zPos = 0, rgb = [65, 105, 225]}) => {
   const id = uid()
-  const size = random(1.5, 2);
+  const size = random(1.5, 1.8);
   const faces = distort(doubleSidedTriangle.map(face => face.map(vector => multiply(size, vector))));
   const [xVelocity, yVelocity] = toCartesian([random(40, 80), random(0, Math.PI * 2)]);
   const ttl = random(400, 600);

@@ -5,13 +5,23 @@ export const tracePolygon = (ctx, polygon) => {
     ctx.lineTo(polygon[i][0], polygon[i][1]);
   }
   ctx.closePath();
-}
+};
 
 export const traceLine = (ctx, start, end) => {
   ctx.beginPath();
   ctx.moveTo(start[0], start[1]);
   ctx.lineTo(end[0], end[1]);
-}
+};
+
+export const tracePolyLines = (ctx, polyLines) => {
+  ctx.beginPath();
+  polyLines.forEach(polyLine => {
+    ctx.moveTo(polyLine[0][0], polyLine[0][1]);
+    for (let i = 1; i < polyLine.length; i++) {
+      ctx.lineTo(polyLine[i][0], polyLine[i][1]);
+    }
+  });
+};
 
 export const shade = (ctx, appearance) => {
   const shadowProps = ['shadowBlur', 'shadowColor', 'shadowOffsetX', 'shadowOffsetY'];
@@ -19,8 +29,8 @@ export const shade = (ctx, appearance) => {
     if (prop in appearance) {
       ctx[prop] = appearance[prop];
     }
-  })
-}
+  });
+};
 
 export const fillAndStroke = (ctx, appearance) => {
   const { fillStyle, strokeStyle, lineWidth } = appearance;
@@ -35,8 +45,8 @@ export const fillAndStroke = (ctx, appearance) => {
     ctx.lineWidth = lineWidth;
     ctx.stroke();
   }
-}
+};
 
 export const toPixels = (width, height, localWidth, localHeight) => (x, y) => {
-  return [width/2 + width * x / localWidth, height/2 - height * y / localHeight];
-}
+  return [width / 2 + width * x / localWidth, height / 2 - height * y / localHeight];
+};
