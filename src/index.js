@@ -75,7 +75,9 @@ const onInitialInteraction = event => {
   cleanUpSplash()
   showGameRound(store, world);
   window.removeEventListener('keydown', onInitialInteraction);
+  gameCanvasElement.removeEventListener('touchstart', onInitialInteraction)
 }
 
 window.addEventListener('keydown', onInitialInteraction)
+gameCanvasElement.addEventListener('touchstart', onInitialInteraction)
 

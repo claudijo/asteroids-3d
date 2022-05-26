@@ -78,10 +78,76 @@ export const addShip = (getState, dispatch) => {
     }
   });
 
+  window.addEventListener('deviceorientation', event => {
+    const absolute = event.absolute;
+    const alpha = event.alpha;
+    const beta = event.beta;
+    const gamma = event.gamma;
+
+    // console.log({absolute})
+    // console.log({alpha})
+    // console.log({beta})
+    // console.log({gamma})
+
+    if (beta < -20) {
+      dispatch(angularAccelerationComponent.update(id, {
+        yawAccel: 20,
+        maxYawSpeed: 6,
+        rollAccel: -30,
+        minRollSpeed: -6,
+      }));
+
+      dispatch(rotationComponent.update(id, {
+        minRoll: -0.6,
+      }));
+    }
+
+    if (beta > 20) {
+      dispatch(angularAccelerationComponent.update(id, {
+        yawAccel: -20,
+        minYawSpeed: -6,
+        rollAccel: 30,
+        maxRollSpeed: 6,
+      }));
+
+      dispatch(rotationComponent.update(id, {
+        maxRoll: 0.6,
+      }));
+    }
+
+    // Leveled out
+    if (beta > -20 && beta < 20) {
+      const { rotation } = getState();
+      const { yawSpeed } = rotation.byId[id];
+
+      console.log(yawSpeed);
+
+      if (yawSpeed > 0) {
+        dispatch(angularAccelerationComponent.update(id, {
+          yawAccel: -20,
+          minYawSpeed: 0,
+          rollAccel: 30,
+        }));
+
+        dispatch(rotationComponent.update(id, {
+          maxRoll: 0,
+        }));
+      } else if (yawSpeed < 0) {
+        dispatch(angularAccelerationComponent.update(id, {
+          yawAccel: 20,
+          maxYawSpeed: 0,
+          rollAccel: -30,
+        }));
+
+        dispatch(rotationComponent.update(id, {
+          minRoll: 0,
+        }));
+      }
+    }
+  });
+
   window.addEventListener('keyup', event => {
     if (event.code === 'ArrowLeft') {
-      const { angularAcceleration } = getState();
-      const { rollAccel, yawAccel } = angularAcceleration.byId[id];
       dispatch(angularAccelerationComponent.update(id, {
         yawAccel: -20,
         minYawSpeed: 0,
@@ -94,8 +160,6 @@ export const addShip = (getState, dispatch) => {
     }
 
     if (event.code === 'ArrowRight') {
-      const { angularAcceleration } = getState();
-      const { rollAccel, yawAccel } = angularAcceleration.byId[id];
       dispatch(angularAccelerationComponent.update(id, {
         yawAccel: 20,
         maxYawSpeed: 0,
