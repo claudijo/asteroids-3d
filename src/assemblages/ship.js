@@ -79,17 +79,12 @@ export const addShip = (getState, dispatch) => {
   });
 
   window.addEventListener('deviceorientation', event => {
-    const absolute = event.absolute;
-    const alpha = event.alpha;
     const beta = event.beta;
     const gamma = event.gamma;
+    const isPortraitMode = screen.availHeight > screen.availWidth;
+    const yaw = isPortraitMode ? gamma : beta;
 
-    // console.log({absolute})
-    // console.log({alpha})
-    // console.log({beta})
-    // console.log({gamma})
-
-    if (beta < -20) {
+    if (yaw < -10) {
       dispatch(angularAccelerationComponent.update(id, {
         yawAccel: 20,
         maxYawSpeed: 6,
@@ -102,7 +97,7 @@ export const addShip = (getState, dispatch) => {
       }));
     }
 
-    if (beta > 20) {
+    if (yaw > 10) {
       dispatch(angularAccelerationComponent.update(id, {
         yawAccel: -20,
         minYawSpeed: -6,
@@ -116,7 +111,7 @@ export const addShip = (getState, dispatch) => {
     }
 
     // Leveled out
-    if (beta > -20 && beta < 20) {
+    if (yaw > -10 && yaw < 10) {
       const { rotation } = getState();
       const { yawSpeed } = rotation.byId[id];
 
