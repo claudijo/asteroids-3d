@@ -83,7 +83,7 @@ export const addShip = (getState, dispatch) => {
       const { angularAcceleration } = getState();
       const { rollAccel, yawAccel } = angularAcceleration.byId[id];
       dispatch(angularAccelerationComponent.update(id, {
-        yawAccel: -10,
+        yawAccel: -20,
         minYawSpeed: 0,
         rollAccel: 30,
       }));
@@ -97,7 +97,7 @@ export const addShip = (getState, dispatch) => {
       const { angularAcceleration } = getState();
       const { rollAccel, yawAccel } = angularAcceleration.byId[id];
       dispatch(angularAccelerationComponent.update(id, {
-        yawAccel: 10,
+        yawAccel: 20,
         maxYawSpeed: 0,
         rollAccel: -30,
       }));

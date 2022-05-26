@@ -60,4 +60,6 @@ export const addAsteroid = (getState, dispatch, { cohort = 0, xPos, yPos, zPos =
   dispatch(hitSphereComponent.add(id, { radius: hitSphereRadius }));
   dispatch(polyhedronComponent.add(id, { faces, color: rgb }));
   dispatch(generationComponent.add(id, { cohort }));
+
+  return id;
 };

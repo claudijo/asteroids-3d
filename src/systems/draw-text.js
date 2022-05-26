@@ -13,12 +13,22 @@ export const drawText = stageId => (getState, dispatch, deltaTime) => {
     const { text, size, alignment, color, lineWidth = 1 } = label.byId[id];
     const { xPos, yPos } = position.byId[id];
 
+    const alignmentVector = [
+      alignment === 'center'
+        ? (text.length * size / 2) * -3
+        : alignment === 'right'
+          ? text.length * size * -3
+          : 0,
+      0,
+      0,
+    ];
+
     const polyLines = [...text].map((char, index) => {
       const positionVector = [xPos + index * 3 * size, yPos];
       const polyLines = characters[char.toUpperCase()] || [];
       return polyLines.map(polyLine => {
         return polyLine.map(vector => {
-          const [x, y] = add(multiply(size, vector), positionVector);
+          const [x, y] = add(multiply(size, vector), positionVector, alignmentVector);
           return mapCoordinates(x, y);
         });
       });
@@ -27,7 +37,6 @@ export const drawText = stageId => (getState, dispatch, deltaTime) => {
     const strokeStyle = `rgb(${color.join(',')})`;
 
     ctx.save();
-    ;
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
     tracePolyLines(ctx, polyLines);

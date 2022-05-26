@@ -22,7 +22,8 @@ import { applyThrust } from './systems/apply-thrust';
 import { slowDown } from './systems/slow-down';
 import { accelerateRotation } from './systems/accelerate-rotation';
 import { drawText } from './systems/draw-text';
-import { addLabel } from './assemblages/label';
+import { showGameRound } from './scenes/game-round';
+import { showSplash } from './scenes/splash';
 
 const gameLayerStageId = uid();
 
@@ -56,9 +57,9 @@ gameLoop.addTask(
   age(gameLayerStageId),
   degenerate(gameLayerStageId),
   clearStage(gameLayerStageId),
+  drawText(gameLayerStageId),
   drawLineSegment(gameLayerStageId),
   drawPolyhedron(gameLayerStageId),
-  drawText(gameLayerStageId),
 );
 
 // Stage
@@ -68,14 +69,13 @@ setStage(store.getState, store.dispatch, {
   world,
 });
 
-// Ship
-addShip(store.getState, store.dispatch);
+let cleanUpSplash = showSplash(store, world);
 
-// Initial asteroids
-const halfWidth = world.width / 2;
-const halfHeight = world.height / 2;
-range(5).forEach(_ => {
-  const xPos = randomInt(-halfWidth, halfWidth);
-  const yPos = randomInt(-halfHeight, halfHeight);
-  addAsteroid(store.getState, store.dispatch, { cohort: 0, xPos, yPos });
-});
+const onInitialInteraction = event => {
+  cleanUpSplash()
+  showGameRound(store, world);
+  window.removeEventListener('keydown', onInitialInteraction);
+}
+
+window.addEventListener('keydown', onInitialInteraction)
+

@@ -5,4 +5,5 @@ export const addLabel = (getState, dispatch, { xPos, yPos, text, size = 2, align
   const id = uid();
   dispatch(positionComponent.add(id, { xPos, yPos }));
   dispatch(labelComponent.add(id, { text, size, alignment, color, lineWidth }));
+  return id;
 }
