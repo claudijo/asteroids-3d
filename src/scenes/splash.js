@@ -13,7 +13,7 @@ export const showSplash = (store, world) => {
   const labelIds = []
 
   labelIds[0] = addLabel(store.getState, store.dispatch, {
-    text: 'Galactagon', xPos: 0, yPos: 45, size: 4, lineWidth: 8, alignment: 'center',
+    text: 'Asteroids 3D', xPos: 0, yPos: 45, size: 4, lineWidth: 8, alignment: 'center',
   });
   labelIds[1] = addLabel(store.getState, store.dispatch, {
     text: 'Rotate left: Tilt device left or press arrow left key', xPos: 0, yPos: 15, size: 1, alignment: 'center'

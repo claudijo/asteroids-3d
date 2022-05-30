@@ -12,6 +12,7 @@ import {
 } from '../components';
 import { uid } from '../libs/uid';
 import { addProjectile } from './projectile';
+import { addExhaustParticle } from './exhaust-particle';
 
 export const addShip = (getState, dispatch) => {
   const id = uid();
