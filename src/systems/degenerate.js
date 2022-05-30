@@ -28,7 +28,7 @@ export const degenerate = stageId => (getState, dispatch, deltaTime) => {
       });
 
       if (cohort < 2) {
-        range(3).forEach(_ => {
+        range(2).forEach(_ => {
           addAsteroid(getState, dispatch, { cohort: cohort + 1, xPos, yPos})
         });
       }
