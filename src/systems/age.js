@@ -1,14 +1,20 @@
-import { lifespan as lifespanComponent, polyhedron as polyhedronComponent, } from '../components';
+import {
+  lifespan as lifespanComponent,
+  polyhedron as polyhedronComponent,
+  appearance as appearanceComponent,
+} from '../components';
 
 import * as componentsExports from '../components';
+import { intersection } from '../libs/array';
 
 const { 'default': _, ...components } = componentsExports;
 
 export const age = stageId => (getState, dispatch, deltaTime) => {
   const state = getState();
-  const { lifespan, polyhedron } = state;
+  const { lifespan, appearance } = state;
+  const ids = intersection(lifespan.allIds, appearance.allIds);
 
-  lifespan.allIds.forEach(id => {
+  ids.forEach(id => {
     let { ttl, fadeOut = NaN } = lifespan.byId[id];
     ttl -= deltaTime;
 
@@ -20,12 +26,13 @@ export const age = stageId => (getState, dispatch, deltaTime) => {
       });
     } else {
       if (!isNaN(fadeOut)) {
-        const opacity = Math.min(1, ttl / fadeOut) ;
-        const { color } = polyhedron.byId[id];
+        const opacity = Math.min(1, ttl / fadeOut);
+        const { color } = appearance.byId[id];
+
         const [r, g, b] = color;
-        dispatch(polyhedronComponent.update(id, {
+        dispatch(appearanceComponent.update(id, {
           color: [r, g, b, opacity],
-        }))
+        }));
       }
 
       dispatch(lifespanComponent.update(id, { ttl }));

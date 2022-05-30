@@ -19,8 +19,8 @@ const pointOfView = {
 }
 
 export const drawPolyhedron = stageId => (getState, dispatch, deltaTime) => {
-  const { polyhedron, position, orientation, stage } = getState();
-  const ids = intersection(polyhedron.allIds, position.allIds, orientation.allIds);
+  const { polyhedron, position, orientation, appearance, stage } = getState();
+  const ids = intersection(polyhedron.allIds, position.allIds, orientation.allIds, appearance.allIds);
 
   const compareFaces = (a, b) => {
     if (a.id !== b.id) {
@@ -32,16 +32,16 @@ export const drawPolyhedron = stageId => (getState, dispatch, deltaTime) => {
   const sortedSurfaces = [];
 
   ids.forEach(id => {
-    const { faces, color = [0, 0, 0], colors = [] } = polyhedron.byId[id];
+    const { faces } = polyhedron.byId[id];
+    const { color } = appearance.byId[id];
     const { roll, pitch, yaw } = orientation.byId[id];
 
     faces.forEach((face, index) => {
       face = face.map(vector => toGlobalFrame(yaw, pitch, roll, vector));
-      const faceColor = colors.length ? colors[index] : color;
 
       if (normal(face)[2] > 0) {
         const index = sortedIndex(sortedSurfaces, { id, face }, compareFaces);
-        insertAt(sortedSurfaces, index, { id, face, color: faceColor });
+        insertAt(sortedSurfaces, index, { id, face, color });
       }
     });
   });

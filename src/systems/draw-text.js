@@ -4,13 +4,14 @@ import { add, multiply } from '../libs/vector';
 import characters from '../multilines/characters.json';
 
 export const drawText = stageId => (getState, dispatch, deltaTime) => {
-  const { label, position, stage } = getState();
-  const ids = intersection(label.allIds, position.allIds);
+  const { label, position, appearance, stage } = getState();
+  const ids = intersection(label.allIds, position.allIds, appearance.allIds);
   const { ctx, width: stageWidth, height: stageHeight, localWidth, localHeight } = stage.byId[stageId];
   const mapCoordinates = toPixels(stageWidth, stageHeight, localWidth, localHeight);
 
   ids.forEach(id => {
-    const { text, size, alignment, color, lineWidth = 1 } = label.byId[id];
+    const { text, size, alignment } = label.byId[id];
+    const { color, lineWidth = 1 } = appearance.byId[id];
     const { xPos, yPos } = position.byId[id];
 
     const alignmentVector = [

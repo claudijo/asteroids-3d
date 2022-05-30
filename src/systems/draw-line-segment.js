@@ -1,13 +1,14 @@
 import { intersection } from '../libs/array';
-import { fillAndStroke, shade, toPixels, traceLine } from '../libs/canvas';
+import { fillAndStroke, toPixels, traceLine } from '../libs/canvas';
 import { add, toCartesian } from '../libs/vector';
 
 export const drawLineSegment = stageId => (getState, dispatch, deltaTime) => {
-  const { lineSegment, position, orientation, stage } = getState();
-  const ids = intersection(lineSegment.allIds, position.allIds, orientation.allIds);
+  const { lineSegment, appearance, position, orientation, stage } = getState();
+  const ids = intersection(lineSegment.allIds, position.allIds, orientation.allIds, appearance.allIds);
 
   ids.forEach(id => {
-    const { length, pixelWidth, color = [0, 0, 0] } = lineSegment.byId[id];
+    const { length } = lineSegment.byId[id];
+    const { pixelWidth, color = [0, 0, 0] } = appearance.byId[id];
     const { yaw } = orientation.byId[id];
 
     const { ctx, width: stageWidth, height: stageHeight, localWidth, localHeight } = stage.byId[stageId];

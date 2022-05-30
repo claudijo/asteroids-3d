@@ -8,6 +8,7 @@ import {
   velocity as velocityComponent,
   health as healthComponent,
   generation as generationComponent,
+  appearance as appearanceComponent,
 } from '../components';
 import { distort, subdivide } from '../libs/mesh';
 import { length, multiply } from '../libs/vector';
@@ -58,7 +59,8 @@ export const addAsteroid = (getState, dispatch, { cohort = 0, xPos, yPos, zPos =
   }));
   dispatch(healthComponent.add(id, { defence: 1 }));
   dispatch(hitSphereComponent.add(id, { radius: hitSphereRadius }));
-  dispatch(polyhedronComponent.add(id, { faces, color: rgb }));
+  dispatch(polyhedronComponent.add(id, { faces }));
+  dispatch(appearanceComponent.add(id, { color: rgb }));
   dispatch(generationComponent.add(id, { cohort }));
 
   return id;

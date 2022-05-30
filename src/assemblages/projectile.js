@@ -7,7 +7,7 @@ import {
   lifespan as lifespanComponent,
   damage as damageComponent,
   hitLine as hitLineComponent,
-  acceleration as accelerationComponent,
+  acceleration as accelerationComponent, appearance as appearanceComponent,
 } from '../components';
 import { uid } from '../libs/uid';
 
@@ -26,7 +26,8 @@ export const addProjectile = (getState, dispatch, { xPos, yPos, yaw, xVelocity =
   dispatch(velocityComponent.add(id, { xVelocity, yVelocity }));
   dispatch(accelerationComponent.add(id, { xAccel: acceleration[0], yAccel: acceleration[1], zAccel: 0, speedLimit }))
   dispatch(lifespanComponent.add(id, { ttl: 1200 }));
-  dispatch(lineSegmentComponent.add(id, { length: projectileLength, pixelWidth: 4, color: rgb,}))
+  dispatch(lineSegmentComponent.add(id, { length: projectileLength}))
+  dispatch(appearanceComponent.add(id, { pixelWidth: 4, color: rgb }));
   dispatch(damageComponent.add(id, { attack: 1 }))
   dispatch(hitLineComponent.add(id, { length: projectileLength }));
 }

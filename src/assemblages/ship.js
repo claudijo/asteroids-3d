@@ -8,13 +8,14 @@ import {
   acceleration as accelerationComponent,
   thrust as thrustComponent,
   friction as frictionComponent,
-  angularAcceleration as angularAccelerationComponent,
+  angularAcceleration as angularAccelerationComponent, appearance as appearanceComponent,
 } from '../components';
 import { uid } from '../libs/uid';
 import { addProjectile } from './projectile';
 
 export const addShip = (getState, dispatch) => {
   const id = uid();
+  const rgb = [128, 0, 0];
 
   dispatch(positionComponent.add(id, { xPos: 0, yPos: 0, zPos: 0 }));
   dispatch(orientationComponent.add(id, { roll: 0, pitch: 0, yaw: 0 }));
@@ -32,7 +33,8 @@ export const addShip = (getState, dispatch) => {
   dispatch(accelerationComponent.add(id, { xAccel: 0, yAccel: 0, zAccel: 0, maxSpeed: 100 }));
   dispatch(thrustComponent.add(id, { power: 0 }));
   dispatch(frictionComponent.add(id, { inertia: 15 }));
-  dispatch(polyhedronComponent.add(id, { faces: shipFaces, color: [128, 0, 0] }));
+  dispatch(polyhedronComponent.add(id, { faces: shipFaces }));
+  dispatch(appearanceComponent.add(id, { color: rgb }));
 
   window.addEventListener('keydown', event => {
     if (event.repeat) {

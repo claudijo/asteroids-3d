@@ -2,6 +2,7 @@ import { uid } from '../libs/uid';
 import doubleSidedTriangle from '../meshes/double-sided-triangle.json'
 import {
   acceleration as accelerationComponent,
+  appearance as appearanceComponent,
   lifespan as lifespanComponent,
   orientation as orientationComponent,
   polyhedron as polyhedronComponent,
@@ -29,5 +30,6 @@ export const addFragment = (getState, dispatch, { xPos, yPos, zPos = 0, rgb = [6
   }));
   dispatch(accelerationComponent.add(id, { xAccel: -xVelocity, yAccel: -yVelocity, zAccel: 0 }))
   dispatch(lifespanComponent.add(id, { ttl, fadeOut: ttl * 0.2 }));
-  dispatch(polyhedronComponent.add(id, { faces, color: rgb }));
+  dispatch(polyhedronComponent.add(id, { faces }));
+  dispatch(appearanceComponent.add(id, { color: rgb }));
 }
