@@ -3,6 +3,7 @@ import { range } from '../libs/array';
 import { randomInt } from '../libs/number';
 import { addAsteroid } from '../assemblages/asteroid';
 import * as componentsExports from '../components';
+import { addStar } from '../assemblages/star';
 
 const { 'default': _, ...components } = componentsExports;
 
@@ -41,9 +42,15 @@ export const showSplash = (store, world) => {
     return addAsteroid(store.getState, store.dispatch, { cohort: index % 3, xPos, yPos });
   });
 
+  const starIds = range(100).map(index => {
+    const xPos = randomInt(-halfWidth, halfWidth);
+    const yPos = randomInt(-halfHeight, halfHeight);
+    return addStar(store.getState, store.dispatch, { xPos, yPos });
+  })
+
   return () => {
     const state = store.getState();
-    [...labelIds, ...asteroidsIds].forEach(id => {
+    [...labelIds, ...asteroidsIds, ...starIds].forEach(id => {
       Object.keys(components).forEach(component => {
         if (typeof state[component].byId[id] !== 'undefined') {
           store.dispatch(components[component].remove(id));

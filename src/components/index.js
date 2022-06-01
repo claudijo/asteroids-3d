@@ -3,6 +3,7 @@ import { createReducer } from '../libs/reducer';
 
 export const lifespan = createReducer('lifeSpan');
 export const lineSegment = createReducer('lineSegment');
+export const circle = createReducer('circle')
 export const position = createReducer('position');
 export const polyhedron = createReducer('polyhedron');
 export const rotation = createReducer('rotation');
@@ -41,4 +42,5 @@ export default combineReducers({
   angularAcceleration,
   label,
   appearance,
+  circle,
 });

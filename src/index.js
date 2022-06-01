@@ -20,6 +20,7 @@ import { accelerateRotation } from './systems/accelerate-rotation';
 import { drawText } from './systems/draw-text';
 import { showGameRound } from './scenes/game-round';
 import { showSplash } from './scenes/splash';
+import { drawCircle } from './systems/draw-circle';
 
 const gameLayerStageId = uid();
 
@@ -54,6 +55,7 @@ gameLoop.addTask(
   age(gameLayerStageId),
   degenerate(gameLayerStageId),
   clearStage(gameLayerStageId),
+  drawCircle(gameLayerStageId),
   drawText(gameLayerStageId),
   drawLineSegment(gameLayerStageId),
   drawPolyhedron(gameLayerStageId),

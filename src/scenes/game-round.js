@@ -2,6 +2,7 @@ import { addShip } from '../assemblages/ship';
 import { range } from '../libs/array';
 import { randomInt } from '../libs/number';
 import { addAsteroid } from '../assemblages/asteroid';
+import { addStar } from '../assemblages/star';
 
 export const showGameRound = (store, world) => {
   // Ship
@@ -15,4 +16,10 @@ export const showGameRound = (store, world) => {
     const yPos = randomInt(-halfHeight, halfHeight);
     addAsteroid(store.getState, store.dispatch, { cohort: 0, xPos, yPos });
   });
+
+  range(100).forEach(_ => {
+    const xPos = randomInt(-halfWidth, halfWidth);
+    const yPos = randomInt(-halfHeight, halfHeight);
+    addStar(store.getState, store.dispatch, { xPos, yPos });
+  })
 }

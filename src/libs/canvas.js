@@ -13,6 +13,11 @@ export const traceLine = (ctx, start, end) => {
   ctx.lineTo(end[0], end[1]);
 };
 
+export const traceCircle = (ctx, position, radius) => {
+  ctx.beginPath();
+  ctx.arc(position[0], position[1], radius, 0, 2 * Math.PI);
+}
+
 export const tracePolyLines = (ctx, polyLines) => {
   ctx.beginPath();
   polyLines.forEach(polyLine => {
