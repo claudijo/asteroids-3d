@@ -23,8 +23,9 @@ import { showSplash } from './scenes/splash';
 
 const gameLayerStageId = uid();
 
+const WORLD_SCALE = 4;
 const stage = { width: 960, height: 600 };
-const world = { width: 240, height: 150 };
+const world = { width: stage.width / WORLD_SCALE, height: stage.height / WORLD_SCALE };
 
 const store = createStore(rootReducer);
 const gameLoop = createGameLoop(store);
