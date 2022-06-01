@@ -13,6 +13,7 @@ import {
 import { uid } from '../libs/uid';
 import { addProjectile } from './projectile';
 import { addExhaustParticle } from './exhaust-particle';
+import { length } from '../libs/vector';
 
 export const addShip = (getState, dispatch) => {
   const id = uid();
@@ -51,7 +52,7 @@ export const addShip = (getState, dispatch) => {
       }));
 
       dispatch(rotationComponent.update(id, {
-        minRoll: -0.6,
+        minRoll: -1.2,
       }));
     }
 
@@ -64,7 +65,7 @@ export const addShip = (getState, dispatch) => {
       }));
 
       dispatch(rotationComponent.update(id, {
-        maxRoll: 0.6,
+        maxRoll: 1.2,
       }));
     }
 
@@ -96,7 +97,7 @@ export const addShip = (getState, dispatch) => {
       }));
 
       dispatch(rotationComponent.update(id, {
-        minRoll: -0.6,
+        minRoll: -1.2,
       }));
     }
 
@@ -109,7 +110,7 @@ export const addShip = (getState, dispatch) => {
       }));
 
       dispatch(rotationComponent.update(id, {
-        maxRoll: 0.6,
+        maxRoll: 1.2,
       }));
     }
 

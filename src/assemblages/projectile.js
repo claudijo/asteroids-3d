@@ -31,7 +31,7 @@ export const addProjectile = (getState, dispatch, { xPos, yPos, yaw, xVelocity =
   dispatch(accelerationComponent.add(id, { xAccel: acceleration[0], yAccel: acceleration[1], zAccel: 0, speedLimit }))
   dispatch(lifespanComponent.add(id, { ttl: 1200 }));
   dispatch(lineSegmentComponent.add(id, { length: projectileLength}))
-  dispatch(appearanceComponent.add(id, { pixelWidth: 4, color: rgb }));
+  dispatch(appearanceComponent.add(id, { pixelWidth: 3, color: rgb }));
   dispatch(damageComponent.add(id, { attack: 1 }))
   dispatch(hitLineComponent.add(id, { length: projectileLength }));
 }

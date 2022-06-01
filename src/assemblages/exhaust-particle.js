@@ -23,5 +23,5 @@ export const addExhaustParticle = (getStat, dispatch, { xPos, yPos, yaw, xVeloci
   dispatch(accelerationComponent.add(id, { xAccel: acceleration[0], yAccel: acceleration[1], zAccel: 0 }));
   dispatch(lifespanComponent.add(id, { ttl, fadeOut: ttl * 0.5 }));
   dispatch(lineSegmentComponent.add(id, { length: 2 }));
-  dispatch(appearanceComponent.add(id, { pixelWidth: 4, color: rgb }));
+  dispatch(appearanceComponent.add(id, { pixelWidth: 2, color: rgb }));
 };
